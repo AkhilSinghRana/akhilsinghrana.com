@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "akhilsinghrana-com"
+version = "0.1.0"
+description = "This is codebase for my personal website"
+authors = ["Akhil Singh Rana <akhilsinghrana@gmail.com>"]
+readme = "README.md"
+packages = [{include = "akhilsinghrana"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
