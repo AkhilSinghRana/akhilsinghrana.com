@@ -3,11 +3,11 @@
 # ===========                                       #
 #                                                   #
 # This is a simple Makefile wrapper to map 'make'   #
-# ulility commands to python 'setup.py' commands.   #
 # So you can, for example, use commands like this   #
 # from the command line:                            #
 #                                                   #
-#    make                                           #
+#    make lint		                                #
+#    make format-code                               #
 #    make test                                      #
 #    make clean    									#
 #                                                   #
@@ -32,4 +32,5 @@ test:
 
 clean:
 	@echo "Cleaning..."
-	@rm -rf build dist *.egg-info
+	@echo $(pscp)
+	@rm -r ./akhilsinghrana/__pycache__/
