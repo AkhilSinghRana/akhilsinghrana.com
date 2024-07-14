@@ -1,7 +1,7 @@
 name: FAST API website for akhilsinghrana.com using Docker Build and push
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 jobs:
@@ -23,8 +23,7 @@ jobs:
             docker buildx create --use
             docker buildx build \
               --file Dockerfile \
-              --tag  akhilsinghrana/personal-website:latest \
-              --push .
+              --tag  akhilsinghrana/personal-website:latest .
     
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
