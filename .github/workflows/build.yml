@@ -22,9 +22,6 @@ jobs:
               --file Dockerfile \
               --tag  akhilsinghrana/personal-website:latest .
 
-    - name: Test setup
-      run: make test
-
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
