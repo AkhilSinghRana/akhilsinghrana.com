@@ -61,5 +61,7 @@ jobs:
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
 
   
