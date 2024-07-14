@@ -1,4 +1,4 @@
-name: push docker image on merge
+name: docker build for akhilsinghrana.com
 
 on:
   push:
