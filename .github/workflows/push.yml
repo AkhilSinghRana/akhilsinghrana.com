@@ -1,29 +1,62 @@
-name: docker build for akhilsinghrana.com
+name: docker build and publish for akhilsinghrana.com on merge/push
 
 on:
   push:
     branches:
       - main
 jobs:
-  build:
+  build-and-publish:
+    name: Push docker image to DockerHub and Github repositories
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Docker build
-      uses: docker/setup-buildx-action@v2
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-    - name: Login to Docker Hub
-      run: echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME}} --password-stdin
+    - name: Log in to the Container registry
+      uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push docker image
-      run:  |
-            docker buildx create --use
-            docker buildx build \
-              --file Dockerfile \
-              --tag  akhilsinghrana/personal-website:latest .
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      with:
+        images: |
+          ${{secrets.DOCKERHUB_USERNAME}}/personal-website
+          ghcr.io/${{ github.repository }}
+    
+    - name: Build and push Docker images
+      id: push
+      uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+      
+    * name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+        subject-digest: ${{ steps.push.outputs.digest }}
+        push-to-registry: true
+
+  
     
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
