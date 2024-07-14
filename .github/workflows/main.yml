@@ -1,4 +1,4 @@
-name: FAST API website for akhilsinghrana.com using Docker Build and push
+name: docker build for akhilsinghrana.com
 
 on:
   push:
