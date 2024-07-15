@@ -1,5 +1,9 @@
 name: docker build and publish for akhilsinghrana.com on merge/push
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 on:
   push:
     branches:
@@ -37,7 +41,8 @@ jobs:
       with:
         images: |
           ${{secrets.DOCKERHUB_USERNAME}}/personal-website
-          ghcr.io/${{ github.repository }}
+          ghcr.io/${{ github.repository }}/personal-website
+        
     
     - name: Build and push Docker images
       id: push
@@ -48,7 +53,6 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
-      
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v1
       with:
@@ -56,12 +60,37 @@ jobs:
         subject-digest: ${{ steps.push.outputs.digest }}
         push-to-registry: true
 
-  
-    
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
 
-  
+  deploy:
+    name: Deploy to pages
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+    env:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: run docker image
+      run: |
+        docker run -p 8000:8000 -d ${{ github.repository }}
+
+
+    - name: Deploy to pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./app
+        
