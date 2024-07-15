@@ -85,7 +85,9 @@ jobs:
 
     - name: run docker image
       run: |
-        docker run -p 8000:8000 -d ${{ github.repository }}
+        docker pull ${{secrets.DOCKERHUB_USERNAME}}/personal-website
+        docker run -p 8000:8000 -d ${{secrets.DOCKERHUB_USERNAME}}/personal-website
+        
 
     - name: Deploy to pages
       id: deployment
