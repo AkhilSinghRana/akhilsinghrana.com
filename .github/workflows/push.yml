@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+      - homepage
 jobs:
   build-and-publish:
     name: Push docker image to DockerHub and Github repositories
@@ -74,7 +75,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    env:
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     
