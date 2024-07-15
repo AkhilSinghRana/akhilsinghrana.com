@@ -42,7 +42,7 @@ jobs:
       with:
         images: |
           ${{secrets.DOCKERHUB_USERNAME}}/personal-website
-          ghcr.io/${{ github.repository }}/personal-website
+          ghcr.io/${{ github.repository }}
         
     
     - name: Build and push Docker images
