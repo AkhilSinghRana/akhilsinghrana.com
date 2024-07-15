@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+      - homepage
 jobs:
   build-and-publish:
     name: Push docker image to DockerHub and Github repositories
@@ -41,7 +42,7 @@ jobs:
       with:
         images: |
           ${{secrets.DOCKERHUB_USERNAME}}/personal-website
-          ghcr.io/${{ github.repository }}/personal-website
+          ghcr.io/${{ github.repository }}
         
     
     - name: Build and push Docker images
@@ -74,7 +75,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    env:
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     
@@ -85,7 +86,6 @@ jobs:
     - name: run docker image
       run: |
         docker run -p 8000:8000 -d ${{ github.repository }}
-
 
     - name: Deploy to pages
       id: deployment
