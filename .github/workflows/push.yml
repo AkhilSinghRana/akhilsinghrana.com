@@ -41,8 +41,8 @@ jobs:
       uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
       with:
         images: |
-          ${{secrets.DOCKERHUB_USERNAME}}/personal-website
-          ghcr.io/${{ github.repository }}
+          ${{secrets.DOCKERHUB_USERNAME}}/personal-website:${{github.sha}}
+          ghcr.io/${{ env.IMAGE_NAME }}
         
     
     - name: Build and push Docker images
@@ -65,34 +65,7 @@ jobs:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
       REGISTRY: ghcr.io
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: ${{ github.repository }}/personal-website:${{github.sha}}
 
-  deploy:
-    name: Deploy to pages
-    needs: build-and-publish
-    runs-on: ubuntu-latest
 
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
-    steps:
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
-
-    - name: run docker image
-      run: |
-        docker pull ${{secrets.DOCKERHUB_USERNAME}}/personal-website
-        docker run -p 8000:8000 -d ${{secrets.DOCKERHUB_USERNAME}}/personal-website
-        
-
-    - name: Deploy to pages
-      id: deployment
-      uses: actions/deploy-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./app
-        
+  
