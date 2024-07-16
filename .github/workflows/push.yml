@@ -28,15 +28,15 @@ jobs:
 
     - name: Debug
       run: |
-        echo "PROJECT_NAME: ${{ vars.gcloud.PROJECT_NAME }}"
+        echo "PROJECT_NAME: ${{ vars.PROJECT_NAME }}"
         echo "WID: ${{ vars.WID }}"
 
     - name: google-AR
       id: auth
       uses: 'google-github-actions/auth@v2'
       with:
-        project_id: ${{env.PROJECT_NAME}}
-        workload_identity_provider: ${{env.WID}}
+        project_id: ${{vars.PROJECT_NAME}}
+        workload_identity_provider: ${{vars.WID}}
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -48,12 +48,12 @@ jobs:
       with:
         username: 'oauth2accesstoken'
         password: '${{ steps.auth.outputs.access_token }}'
-        registry: '${{ env.SERVICE_LOCATION }}-docker.pkg.dev'
+        registry: '${{ vars.SERVICE_LOCATION }}-docker.pkg.dev'
     
     - name: Build and Push Container
       run: |-
-        docker build -t "${{ env.ARTIFACT_LOCATION }}:${{ github.sha }}" ./
-        docker push "${{ env.ARTIFACT_LOCATION }}:${{ github.sha }}" 
+        docker build -t "${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }}" ./
+        docker push "${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }}" 
       
 
     env:
