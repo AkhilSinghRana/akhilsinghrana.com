@@ -37,7 +37,8 @@ jobs:
       with:
         token_format: 'access_token'
         project_id: ${{vars.PROJECT_NAME}}
-        workload_identity_provider: ${{vars.WID}}
+        workload_identity_provider: ${{secrets.WID}}
+        service_account: ${{secrets.SERVICE_ACCOUNT}}
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
