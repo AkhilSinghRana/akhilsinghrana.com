@@ -59,6 +59,7 @@ jobs:
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
-
+      ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+      
 
   
