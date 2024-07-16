@@ -43,10 +43,13 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
 
+    - name: Authenticate Docker to Google Cloud Artifact Registry
+      run: |
+        gcloud auth configure-docker ${{ vars.SERVICE_LOCATION }}-docker.pkg.dev
     
     - name: Build and Push Container
       run: |-
-        docker build -t "${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }}" ./
+        docker build -t "${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }}" .
         docker push "${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }}" 
       
 
