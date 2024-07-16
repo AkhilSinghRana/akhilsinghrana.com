@@ -29,7 +29,7 @@ jobs:
     - name: Debug
       run: |
         echo "PROJECT_NAME: ${{ vars.PROJECT_NAME }}"
-        echo "WID: ${{ vars.WID }}"
+        echo "WID: ${{ secrets.WID }}"
 
     - name: google-Authentication
       id: auth
