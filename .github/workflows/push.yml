@@ -57,3 +57,34 @@ jobs:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
       
+  deploy:
+    name: deploy to cloud run
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    environment: gcloud
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: google-Authentication
+      id: auth
+      uses: 'google-github-actions/auth@v2'
+      with:
+        project_id: ${{vars.PROJECT_NAME}}
+        workload_identity_provider: ${{secrets.WID}}
+        service_account: ${{secrets.SERVICE_ACCOUNT}}
+    
+    - name: Deploy to cloud run
+      run: |
+        gcloud run deploy ${{ vars.SERVICE_NAME }} \
+        --image ${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }} \
+        --platform managed \
+        --region ${{ vars.SERVICE_LOCATION }} \
+        --allow-unauthenticated
