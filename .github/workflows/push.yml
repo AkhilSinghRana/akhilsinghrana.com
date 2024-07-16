@@ -44,6 +44,9 @@ jobs:
     - name: Print Access Token (Debugging Step)
       run: "echo Access Token: ${{ steps.auth.outputs.access_token }}"
     # Authenticate Docker to Google Cloud Artifact Registry
+    - name: Configure Docker for gcloud
+      run: gcloud auth configure-docker ${{ vars.SERVICE_LOCATION }}-docker.pkg.dev
+
     - name: Docker Auth
       id: docker-auth
       uses: 'docker/login-action@v2'
