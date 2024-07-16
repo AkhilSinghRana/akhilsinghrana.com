@@ -26,6 +26,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Debug
+      run: |
+        echo "PROJECT_NAME: ${{ env.PROJECT_NAME }}"
+        echo "WID: ${{ env.WID }}"
+
     - name: google-AR
       id: auth
       uses: 'google-github-actions/auth@v2'
