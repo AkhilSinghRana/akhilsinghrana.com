@@ -70,9 +70,7 @@ jobs:
       attestations: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
+    
     - name: google-Authentication
       id: auth
       uses: 'google-github-actions/auth@v2'
