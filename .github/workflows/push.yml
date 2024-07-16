@@ -71,13 +71,6 @@ jobs:
 
     steps:
     
-    - name: google-Authentication
-      id: auth
-      uses: 'google-github-actions/auth@v2'
-      with:
-        project_id: ${{vars.PROJECT_NAME}}
-        workload_identity_provider: ${{secrets.WID}}
-        service_account: ${{secrets.SERVICE_ACCOUNT}}
     
     - name: Deploy to cloud run
       run: |
