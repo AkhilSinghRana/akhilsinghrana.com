@@ -28,8 +28,8 @@ jobs:
 
     - name: Debug
       run: |
-        echo "PROJECT_NAME: ${{ env.gcloud.PROJECT_NAME }}"
-        echo "WID: ${{ env.gcloud.WID }}"
+        echo "PROJECT_NAME: ${{ vars.gcloud.PROJECT_NAME }}"
+        echo "WID: ${{ vars.WID }}"
 
     - name: google-AR
       id: auth
