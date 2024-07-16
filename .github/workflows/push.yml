@@ -31,10 +31,11 @@ jobs:
         echo "PROJECT_NAME: ${{ vars.PROJECT_NAME }}"
         echo "WID: ${{ vars.WID }}"
 
-    - name: google-AR
+    - name: google-Authentication
       id: auth
       uses: 'google-github-actions/auth@v2'
       with:
+        token_format: 'access_token'
         project_id: ${{vars.PROJECT_NAME}}
         workload_identity_provider: ${{vars.WID}}
     
@@ -44,9 +45,6 @@ jobs:
     - name: Print Access Token (Debugging Step)
       run: "echo Access Token: ${{ steps.auth.outputs.access_token }}"
     # Authenticate Docker to Google Cloud Artifact Registry
-    - name: Configure Docker for gcloud
-      run: gcloud auth configure-docker ${{ vars.SERVICE_LOCATION }}-docker.pkg.dev
-
     - name: Docker Auth
       id: docker-auth
       uses: 'docker/login-action@v2'
