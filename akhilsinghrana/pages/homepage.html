@@ -1,15 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to My Website</title>
-
-    </head>
-    <body>
-        <br>
-        <h1>Welcome to Akhil Singh Rana's Website </h1>
-        <br>
-        <p>content is coming soon</p>
-    </body>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akhil Singh Rana | akhilsinghrana.com</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/scripts/css/homepage.css" rel="stylesheet">
 </head>
+<body class="dark">
+    
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <div class="col-md-3 col-lg-2 sidebar">
+                <div class="d-flex flex-column align-items-center">
+                    <img src="../static/Extra/imgs/akhil-pp.jpg" alt="Akhil Singh Rana" class="profile-img mb-4">
+                    <h2>Akhil Singh Rana</h2>
+                    <p>Senior Machine Learning Engineer</p>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#home">Home</a>
+                    <a class="nav-link" href="#schedule">Schedule Meeting</a>
+                    <a class="nav-link" href="#contact">Contact</a>
+                </nav>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                      <input type="checkbox" id="checkbox" checked/>
+                      <div class="slider round">
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                      </div>
+                    </label>
+                </div>
+                
+            </div>
+            <main class="col-md-9 col-lg-10 main-content">
+                <nav class="nav-dots">
+                    <ul>
+                        <li><a href="#home" class="dot"></a></li>
+                        <li><a href="#schedule" class="dot"></a></li>
+                        <li><a href="#contact" class="dot"></a></li>
+                    </ul>
+                </nav>
+                <section id="home" class="blog-section">
+                    <div class="static-content">
+                        <div class="static-content-inner">
+                            <h1>Welcome to my Website</h1>
+                            <p class="lead">I'm a Senior Machine Learning Engineer with a passion for integrating new trends and creating innovative solutions.</p>
+                            <a href="#portfolio" class="btn btn-custom">View My Work</a>
+                        </div>
+                    </div>
+                    <div class="blog-carousel">
+                        <div class="blog-container">
+                            <div class="blog-item active">
+                                <div class="blog-content">
+                                    <h2>Latest Blog</h2>
+                                    <p>Preview of the latest blog post...</p>
+                                    <a href="#" class="btn btn-custom read-more">Read More</a>
+                                </div>
+                            </div>
+                            <div class="blog-item">
+                                <div class="blog-content">
+                                    <h2>Blog Post 1</h2>
+                                    <p>Preview of blog post 1...</p>
+                                    <a href="#" class="btn btn-custom read-more">Read More</a>
+                                </div>
+                            </div>
+                            <div class="blog-item">
+                                <div class="blog-content">
+                                    <h2>Blog Post 2</h2>
+                                    <p>Preview of blog post 2...</p>
+                                    <a href="#" class="btn btn-custom read-more">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-arrow prev">&lt;</button>
+                        <button class="carousel-arrow next">&gt;</button>
+                        <div class="carousel-indicators"></div>
+                    </div>
+                </section>
+                <section id="schedule">
+                    <div>
+                        <h1>Schedule a booking with me</h1>
+                    </div>
+                </section>
+                <section id="contact">
+                    <div >
+                      <h1>Contact Us</h1>
+                      <form id="contact-form">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                  
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                  
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" required></textarea>
+                  
+                        <button type="submit">Send</button>
+                      </form>
+                    </div>
+                  </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/scripts/js/homepage.js"></script>
+</body>
+</html>
