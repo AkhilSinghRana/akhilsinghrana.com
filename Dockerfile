@@ -32,11 +32,11 @@ WORKDIR /app
 COPY akhilsinghrana ./akhilsinghrana
 
 #RUN pip install poetry==1.8.3 && poetry install --without dev 
-# Make port 80 available to the world outside this container
-EXPOSE 8000
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
 
 # Set the maintainer label
 LABEL maintainer="Akhil Singh Rana <akhilsinghrana@gmail.com>"
 
 # Run main.py when the container launches
-CMD ["fastapi", "run", "./akhilsinghrana/main.py", "--host", "0.0.0.0", "--port", "8000"]DockerfileCopy code
+CMD ["fastapi", "run", "./akhilsinghrana/main.py", "--host", "0.0.0.0", "--port", "8080"]DockerfileCopy code
