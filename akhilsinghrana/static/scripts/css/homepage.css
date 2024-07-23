@@ -28,7 +28,7 @@ body {
 
 .main-content {
     margin-left: 300px;
-    padding: 0;
+    padding: 50px;
 }
 
 .profile-img {
@@ -220,19 +220,19 @@ section.active {
     top: 10px;
     right: 20px;
 }
-  
-  .theme-switch {
+
+.theme-switch {
     display: inline-block;
     height: 34px;
     position: relative;
     width: 60px;
-  }
-  
-  .theme-switch input {
+}
+
+.theme-switch input {
     display: none;
-  }
-  
-  .slider {
+}
+
+.slider {
     background-color: #ccc;
     bottom: 0;
     cursor: pointer;
@@ -241,9 +241,9 @@ section.active {
     right: 0;
     top: 0;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     background-color: #fff;
     bottom: 4px;
     content: "";
@@ -252,26 +252,26 @@ section.active {
     position: absolute;
     transition: .4s;
     width: 26px;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked + .slider {
     background-color: #2196F3;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked + .slider:before {
     transform: translateX(26px);
-  }
-  
-  .slider.round {
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
-  
-  /* Moon icon */
-  .slider .moon-icon {
+}
+
+/* Moon icon */
+.slider .moon-icon {
     position: absolute;
     left: 8px;
     top: 6px;
@@ -279,12 +279,12 @@ section.active {
     height: 20px;
     fill: #ffffff;
     transition: .4s;
-  }
-  
-  input:checked + .slider .moon-icon {
+}
+
+input:checked + .slider .moon-icon {
     fill: #2196F3;
     transform: translateX(26px);
-  }
+}
 
 /* Contact Form */
 #contact {
@@ -295,55 +295,197 @@ section.active {
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
+}
 
-  #contact h1 {
+#contact h1 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
-  }
+}
 
-  #contact-form {
+#contact-form {
     display: flex;
     flex-direction: column;
     
-  }
+}
 
-  #contact-form label {
+#contact-form label {
     margin-bottom: 5px;
     color: #555;
-  }
+}
 
-  #contact-form input,
-  #contact-form textarea {
+#contact-form input,
+#contact-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
-  }
+}
 
-  #contact-form textarea {
+#contact-form textarea {
     height: 150px;
     resize: vertical;
-  }
+}
 
-  #contact-form button {
-    background-color: #4CAF50;
-    color: white;
+#contact-form button {
+    background-color: var(--background-color);
+    color: var(--btn-bg-color);
     border: none;
     padding: 12px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
-  }
+}
 
-  #contact-form button:hover {
-    background-color: #45a049;
-  }
-  
+#contact-form button:hover {
+    background-color: var(--btn-hover-bg-color);
+}
+
+/* About Section */
+#about {
+    min-height: 100vh;
+    padding: 2rem 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.about-container {
+    display: flex;
+    gap: 4rem;
+    margin: 0 auto;
+    align-items: flex-start; /* Align items to the top for better alignment */
+    justify-content: center;
+}
+
+.about-column-left {
+    flex: 1 1 55%; /* Flex basis of 40% */
+    max-width: 60%; /* Ensures it does not exceed 40% */
+}
+
+.about-column-right {
+    flex: 1 1 45%; /* Flex basis of 60% */
+    max-width: 60%; /* Ensures it does not exceed 60% */
+}
+
+.introduction h2,
+.education h2,
+.professional-experience h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--btn-bg-color);
+    border-bottom: 2px solid var(--btn-bg-color);
+    padding-bottom: 0.5rem;
+}
+
+.introduction p,
+.education li,
+.publications li,
+.professional-experience li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.education ul,
+.publications ul,
+.professional-experience ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.education li,
+.publications li,
+.professional-experience li {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.education li:before,
+.publications li:before,
+.professional-experience li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--btn-bg-color);
+}
+
+.professional-experience h3 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--btn-bg-color);
+}
+
+/* Publications Section */
+#publications {
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.publications h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--btn-bg-color);
+    border-bottom: 2px solid var(--btn-bg-color);
+    padding-bottom: 0.5rem;
+}
+
+.publications-column-left {
+    flex: 1 1 55%;
+    max-width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.publications-column-right {
+    flex: 1 1 45%;
+    max-width: 45%;
+    padding-left: 40px;
+}
+
+#publication-preview-container {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 45px;
+}
+
+#publication-preview {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+#publication-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#publication-list li {
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#publication-list li:hover {
+    background-color: var(--sidebar-bg-color);
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
@@ -362,7 +504,31 @@ section.active {
     .nav-dots {
         right: 10px;
     }
+    .about-container {
+        flex-direction: column;
+    }
+
+    .about-column {
+        flex: 1 1 100%;
+    }
+    #publications {
+        flex-direction: column;
+    }
+    
+    .publications-column-left,
+    .publications-column-right {
+        flex: 1 1 100%;
+        max-width: 100%;
+        padding-left: 0;
+    }
+    
+    #publication-preview-container {
+        height: 50vh;
+        margin-bottom: 2rem;
+    }
 }
+
+
 
 /* Dark Theme */
 body.dark {

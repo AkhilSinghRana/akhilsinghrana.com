@@ -109,4 +109,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     toggleSwitch.addEventListener('change', switchTheme, false);
+
+
+    // Preview Publications
+    const previewImage = document.getElementById('publication-preview');
+    const publicationList = document.getElementById('publication-list');
+
+    publicationList.addEventListener('click', function(e) {
+        const clickedItem = e.target.closest('li');
+        if (clickedItem) {
+            const previewSrc = clickedItem.getAttribute('data-preview');
+            previewImage.src = previewSrc;
+        }
+    });
+
+    previewImage.addEventListener('click', function() {
+        const activeItem = publicationList.querySelector(`li[data-preview="${previewImage.src}"]`);
+        if (activeItem) {
+            const officialLink = activeItem.getAttribute('data-link');
+            if (officialLink) {
+                window.open(officialLink, '_blank');
+            }
+        }
+    });
 });
