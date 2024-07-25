@@ -1,21 +1,28 @@
 :root {
-    --background-color: rgba(255, 255, 255, 1);
-    --sidebar-bg-color: rgba(17, 53, 82, 0.5);
-    --text-color: rgb(0, 0, 0);
-    --link-color: rgba(0, 0, 0, 0.829);
-    --link-hover-color: #007bff;
-    --btn-bg-color: rgba(134, 173, 144, 0.9);
-    --btn-hover-bg-color: #0056b3;
+    --background-color: rgba(22, 22, 22, 1);
+    --sidebar-bg-color: rgba(32, 32, 32, 1);
+    --text-color: rgba(220, 220, 220, 1);
+    --link-color: rgb(216, 216, 72);
+    --link-hover-color: rgba(255, 165, 0, 1);
+    --btn-bg-color: rgba(255, 165, 0, 1);
+    --btn-hover-bg-color: rgba(255, 69, 0, 1);
 }
 
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+    
 }
-
+a{
+    color: var(--link-color);
+}
+a:hover{
+    color: var(--link-hover-color);
+}
 .sidebar {
     background-color: var(--sidebar-bg-color);
+    
     height: 100vh;
     position: fixed;
     left: 0;
@@ -40,7 +47,7 @@ body {
 }
 
 .nav-link {
-    color: var(--link-color);
+    color: var(--text-color);
     transition: color 0.3s ease;
 }
 
@@ -71,7 +78,7 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--text-color);
     transition: background-color 0.3s ease;
 }
 
@@ -122,6 +129,7 @@ body {
     height: 100%;
 }
 
+
 .blog-item {
     flex: 0 0 100%;
     opacity: 0;
@@ -149,8 +157,8 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
+    background: var(--background-color);
+    color: var(--text-color);
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -178,12 +186,12 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--text-color);
     cursor: pointer;
 }
 
 .indicator.active {
-    background: white;
+    background: var(--btn-hover-bg-color);
 }
 
 .btn-custom {
@@ -361,13 +369,94 @@ input:checked + .slider .moon-icon {
 }
 
 .about-column-left {
-    flex: 1 1 55%; /* Flex basis of 40% */
-    max-width: 60%; /* Ensures it does not exceed 40% */
+    flex: 1 1 55%; /* Flex basis of xx% */
+    max-width: 60%; /* Ensures it does not exceed xx% */
 }
 
 .about-column-right {
-    flex: 1 1 45%; /* Flex basis of 60% */
-    max-width: 60%; /* Ensures it does not exceed 60% */
+    flex: 1 1 45%; /* Flex basis of xx% */
+    max-width: 60%; /* Ensures it does not exceed xx% */
+}
+
+/* Portfolio Section */
+.portfolio-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.portfolio-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+}
+
+.portfolio-item {
+    flex: 0 0 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-item.active {
+    opacity: 1;
+ 
+}
+
+.portfolio-content {
+    text-align: center;
+    max-width: 60%;
+}
+
+.portfolio-content img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 3rem;
+}
+
+.portfolio-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--background-color);
+    color: var(--text-color);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.portfolio-arrow.prev {
+    left: 10px;
+}
+
+.portfolio-arrow.next {
+    right: 10px;
+}
+
+.portfolio-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.portfolio-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-color);
+    cursor: pointer;
+}
+
+.portfolio-indicator.active {
+    background: var(--btn-hover-bg-color);
 }
 
 .introduction h2,
@@ -535,7 +624,7 @@ body.dark {
     --background-color: rgba(22, 22, 22, 1);
     --sidebar-bg-color: rgba(32, 32, 32, 1);
     --text-color: rgba(220, 220, 220, 1);
-    --link-color: rgba(180, 180, 180, 1);
+    --link-color: rgb(216, 216, 72);
     --link-hover-color: rgba(255, 165, 0, 1);
     --btn-bg-color: rgba(255, 165, 0, 1);
     --btn-hover-bg-color: rgba(255, 69, 0, 1);
@@ -546,7 +635,7 @@ body.light {
     --background-color: rgba(255, 255, 255, 1);
     --sidebar-bg-color: rgba(240, 240, 240, 1);
     --text-color: rgba(0, 0, 0, 0.9);
-    --link-color: rgba(0, 0, 0, 0.7);
+    --link-color: rgba(26, 11, 138, 0.949);
     --link-hover-color: #0056b3;
     --btn-bg-color: rgba(134, 173, 144, 0.9);
     --btn-hover-bg-color: #0056b3;
