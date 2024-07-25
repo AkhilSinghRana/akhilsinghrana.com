@@ -2,21 +2,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Variables
     const dots = document.querySelectorAll('.dot');
     const sections = document.querySelectorAll('section');
+
+    // Blog carousel
     const blogCarousel = document.querySelector('.blog-carousel');
     const blogContainer = blogCarousel?.querySelector('.blog-container');
     const blogItems = blogContainer?.querySelectorAll('.blog-item');
     const prevBtn = blogCarousel?.querySelector('.prev');
     const nextBtn = blogCarousel?.querySelector('.next');
     const indicatorsContainer = blogCarousel?.querySelector('.carousel-indicators');
+    
+    // Toggle switch
     const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    
+    // Publications
     const previewImage = document.getElementById('publication-preview');
     const publicationList = document.getElementById('publication-list');
+    
+    // Portfolio carousel
     const portfolioCarousel = document.querySelector('.portfolio-carousel');
-    const portfolioContainer = document.querySelector('.portfolio-container');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    const portfolioPrevBtn = document.querySelector('.portfolio-arrow.prev');
-    const portfolioNextBtn = document.querySelector('.portfolio-arrow.next');
-    const portfolioIndicatorsContainer = document.querySelector('.portfolio-indicators');
+    const portfolioContainer = portfolioCarousel?.querySelector('.portfolio-container');
+    const portfolioItems = portfolioContainer?.querySelectorAll('.portfolio-item');
+    const portfolioPrevBtn = portfolioCarousel?.querySelector('.portfolio-arrow.prev');
+    const portfolioNextBtn = portfolioCarousel?.querySelector('.portfolio-arrow.next');
+    const portfolioIndicatorsContainer = portfolioCarousel?.querySelector('.portfolio-indicators');
+    
     let currentIndex = 0;
     let intervalId;
     let portfolioCurrentIndex = 0;
@@ -28,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const targetId = dot.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            targetSection.scrollIntoView({ behavior: 'smooth' });
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
 
@@ -39,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const sectionBottom = sectionTop + section.offsetHeight;
             if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                 dots.forEach(dot => dot.classList.remove('active'));
-                dots[index].classList.add('active');
+                dots[index]?.classList.add('active');
                 sections.forEach(s => s.classList.remove('active'));
                 section.classList.add('active');
             }
@@ -51,28 +62,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carousel functionality
     function updateCarousel() {
-        if (!blogContainer) return;
-        blogContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        if (!blogContainer || !blogItems?.length) return;
+        const itemWidth = blogItems[0].offsetWidth;
+        blogContainer.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
         blogItems.forEach((item, index) => {
             item.classList.toggle('active', index === currentIndex);
         });
-        const indicators = indicatorsContainer.querySelectorAll('.indicator');
-        indicators.forEach((indicator, index) => {
+        const indicators = indicatorsContainer?.querySelectorAll('.indicator');
+        indicators?.forEach((indicator, index) => {
             indicator.classList.toggle('active', index === currentIndex);
         });
     }
 
     function goToSlide(index) {
+        if (!blogItems?.length) return;
         currentIndex = index;
         updateCarousel();
     }
 
     function nextSlide() {
+        if (!blogItems?.length) return;
         currentIndex = (currentIndex + 1) % blogItems.length;
         updateCarousel();
     }
 
     function prevSlide() {
+        if (!blogItems?.length) return;
         currentIndex = (currentIndex - 1 + blogItems.length) % blogItems.length;
         updateCarousel();
     }
@@ -85,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(intervalId);
     }
 
-    if (prevBtn && nextBtn) {
+    if (prevBtn && nextBtn && blogItems?.length > 0) {
         prevBtn.addEventListener('click', () => {
             prevSlide();
             stopAutoScroll();
@@ -98,20 +113,23 @@ document.addEventListener('DOMContentLoaded', () => {
             startAutoScroll(); // Restart auto-scroll after manual navigation
         });
 
-        blogCarousel.addEventListener('mouseenter', stopAutoScroll);
-        blogCarousel.addEventListener('mouseleave', startAutoScroll);
+        blogCarousel?.addEventListener('mouseenter', stopAutoScroll);
+        blogCarousel?.addEventListener('mouseleave', startAutoScroll);
 
         // Indicators
-        blogItems.forEach((_, index) => {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            indicator.addEventListener('click', () => {
-                goToSlide(index);
-                stopAutoScroll();
-                startAutoScroll(); // Restart auto-scroll after manual navigation
+        if (indicatorsContainer) {
+            indicatorsContainer.innerHTML = ''; // Clear existing indicators
+            blogItems.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                    stopAutoScroll();
+                    startAutoScroll(); // Restart auto-scroll after manual navigation
+                });
+                indicatorsContainer.appendChild(indicator);
             });
-            indicatorsContainer.appendChild(indicator);
-        });
+        }
 
         updateCarousel();
         startAutoScroll();
@@ -128,21 +146,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    toggleSwitch.addEventListener('change', switchTheme, false);
+    toggleSwitch?.addEventListener('change', switchTheme, false);
 
     // Preview Publications
-    publicationList.addEventListener('click', function(e) {
+    publicationList?.addEventListener('click', function(e) {
         const clickedItem = e.target.closest('li');
-        if (clickedItem) {
+        if (clickedItem && previewImage) {
             const previewSrc = clickedItem.getAttribute('data-preview');
             previewImage.src = previewSrc;
         }
     });
 
-    previewImage.addEventListener('click', function() {
-        const activeItem = publicationList.querySelector(`li[data-preview="${previewImage.src}"]`);
+    previewImage?.addEventListener('click', function() {
+        const activeItem = publicationList?.querySelector(`li[data-preview="${previewImage.src}"]`);
         if (activeItem) {
-            const officialLink = activeItem.querySelector('a').getAttribute('href');
+            const officialLink = activeItem.querySelector('a')?.getAttribute('href');
             if (officialLink) {
                 window.open(officialLink, '_blank');
             }
@@ -151,28 +169,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Portfolio Section
     function updatePortfolioCarousel() {
-        if (!portfolioContainer) return;
+        if (!portfolioContainer || !portfolioItems?.length) return;
         portfolioContainer.style.transform = `translateX(-${portfolioCurrentIndex * 100}%)`;
         portfolioItems.forEach((item, index) => {
             item.classList.toggle('active', index === portfolioCurrentIndex);
         });
-        const portfolioIndicators = portfolioIndicatorsContainer.querySelectorAll('.portfolio-indicator');
-        portfolioIndicators.forEach((pIndicator, index) => {
+        const portfolioIndicators = portfolioIndicatorsContainer?.querySelectorAll('.portfolio-indicator');
+        portfolioIndicators?.forEach((pIndicator, index) => {
             pIndicator.classList.toggle('active', index === portfolioCurrentIndex);
         });
     }
 
     function goToPortfolioSlide(index) {
+        if (!portfolioItems?.length) return;
         portfolioCurrentIndex = index;
         updatePortfolioCarousel();
     }
 
     function nextPortfolioSlide() {
+        if (!portfolioItems?.length) return;
         portfolioCurrentIndex = (portfolioCurrentIndex + 1) % portfolioItems.length;
         updatePortfolioCarousel();
     }
 
     function prevPortfolioSlide() {
+        if (!portfolioItems?.length) return;
         portfolioCurrentIndex = (portfolioCurrentIndex - 1 + portfolioItems.length) % portfolioItems.length;
         updatePortfolioCarousel();
     }
@@ -185,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(portfolioIntervalId);
     }
 
-    if (portfolioPrevBtn && portfolioNextBtn) {
+    if (portfolioPrevBtn && portfolioNextBtn && portfolioItems?.length > 0) {
         portfolioPrevBtn.addEventListener('click', () => {
             prevPortfolioSlide();
             stopPortfolioAutoScroll();
@@ -198,20 +219,22 @@ document.addEventListener('DOMContentLoaded', () => {
             startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
         });
 
-        portfolioCarousel.addEventListener('mouseenter', stopPortfolioAutoScroll);
-        portfolioCarousel.addEventListener('mouseleave', startPortfolioAutoScroll);
+        portfolioCarousel?.addEventListener('mouseenter', stopPortfolioAutoScroll);
+        portfolioCarousel?.addEventListener('mouseleave', startPortfolioAutoScroll);
 
         // Indicators
-        portfolioItems.forEach((_, index) => {
-            const pIndicator = document.createElement('div');
-            pIndicator.classList.add('portfolio-indicator');
-            pIndicator.addEventListener('click', () => {
-                goToPortfolioSlide(index);
-                stopPortfolioAutoScroll();
-                startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
+        if (portfolioIndicatorsContainer) {
+            portfolioItems.forEach((_, index) => {
+                const pIndicator = document.createElement('div');
+                pIndicator.classList.add('portfolio-indicator');
+                pIndicator.addEventListener('click', () => {
+                    goToPortfolioSlide(index);
+                    stopPortfolioAutoScroll();
+                    startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
+                });
+                portfolioIndicatorsContainer.appendChild(pIndicator);
             });
-            portfolioIndicatorsContainer.appendChild(pIndicator);
-        });
+        }
 
         updatePortfolioCarousel();
         startPortfolioAutoScroll();

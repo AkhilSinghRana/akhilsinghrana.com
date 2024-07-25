@@ -6,6 +6,9 @@
     --link-hover-color: rgba(255, 165, 0, 1);
     --btn-bg-color: rgba(255, 165, 0, 1);
     --btn-hover-bg-color: rgba(255, 69, 0, 1);
+    --h1-color: rgb(13, 131, 86);
+    --highlight-color: #05213f;
+    
 }
 
 body {
@@ -35,7 +38,8 @@ a:hover{
 
 .main-content {
     margin-left: 300px;
-    padding: 50px;
+    margin-top: 0px;
+    padding: 10px;
 }
 
 .profile-img {
@@ -87,19 +91,21 @@ a:hover{
 }
 
 .nav-dots .dot.active {
-    background-color: #fff;
+    background-color: var(--btn-hover-bg-color);
 }
 
-.blog-section {
+.home-section {
     position: relative;
     overflow: hidden;
     height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .static-content {
-    height: 75%;
+    height: 70%;
+    margin-top: 10%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -115,83 +121,124 @@ a:hover{
     font-size: 3rem;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(57, 52, 60, 0.8);
+    color: var(--h1-color);
+}
+.professional-experience h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--btn-bg-color);
+    border-bottom: 1px dashed var(--btn-bg-color);
+    padding-bottom: 0.5rem;
+    text-align: center;
+}
+
+#blog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.featured-blog {
+    background-color: var(--sidebar-bg-color);
+    height: 70%;
+    border-radius: 10px;
+    margin-bottom: 3rem !important;
+    transition: background-color 0.3s ease;
+}
+
+.featured-blog .card {
+    background-color: transparent;
+}
+
+.featured-blog .card-title,
+.featured-blog .card-text {
+    color: var(--text-color);
+}
+
+.featured-blog .text-primary {
+    color: var(--link-color) !important;
+}
+
+.featured-blog .text-primary:hover {
+    color: var(--link-hover-color) !important;
+}
+
+.blog-content {
+    background-color: var(--sidebar-bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 20px;
+    border-radius: 5px;
+    height: 100%;
+
+}
+
+
+
+.blog-content h2 {
+    color: var(--text-color);
+}
+
+.btn-custom {
+    background-color: var(--btn-bg-color);
+    color: var(--background-color);
+}
+
+.btn-custom:hover {
+    background-color: var(--btn-hover-bg-color);
+    color: var(--background-color);
+}
+
+/* Ensure carousel arrows are visible in both themes */
+.carousel-arrow {
+    background-color: var(--btn-bg-color);
+    color: var(--background-color);
+}
+
+.carousel-arrow:hover {
+    background-color: var(--btn-hover-bg-color);
 }
 
 .blog-carousel {
-    height: 25%;
+    overflow: hidden;
     position: relative;
-    width: 100%;    
 }
 
 .blog-container {
     display: flex;
-    transition: transform 0.5s ease;
-    height: 100%;
+    transition: transform 0.3s ease;
 }
-
 
 .blog-item {
-    flex: 0 0 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 33.333%;
+    padding: 0 15px;
+    transition: opacity 0.3s ease;
 }
 
-.blog-item.active {
-    opacity: 1;
-}
-
-.blog-content {
-    text-align: center;
-    max-width: 80%;
-}
-
-.blog-content h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
 
 .carousel-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--background-color);
-    color: var(--text-color);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 15px;
+    font-size: 18px;
     cursor: pointer;
-    z-index: 10;
 }
 
 .carousel-arrow.prev {
-    left: 10px;
+    left: 0;
 }
 
 .carousel-arrow.next {
-    right: 10px;
+    right: 0;
 }
 
-.carousel-indicators {
-    position: absolute;
-    bottom: 10px;
-    left: 40%;
-    transform: translateX(-67%);
-    display: flex;
-    gap: 5px;
-}
-
-.indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--text-color);
-    cursor: pointer;
-}
-
-.indicator.active {
-    background: var(--btn-hover-bg-color);
+.blog-item.active .blog-content {
+    background-color: var(--highlight-color);
 }
 
 .btn-custom {
@@ -460,13 +507,13 @@ input:checked + .slider .moon-icon {
 }
 
 .introduction h2,
-.education h2,
-.professional-experience h2 {
+.education h2 {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: var(--btn-bg-color);
     border-bottom: 2px solid var(--btn-bg-color);
     padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 .introduction p,
@@ -526,7 +573,7 @@ input:checked + .slider .moon-icon {
 }
 
 .publications-column-left {
-    flex: 1 1 55%;
+    flex: 1 1 15%;
     max-width: 55%;
     display: flex;
     justify-content: center;
@@ -534,8 +581,8 @@ input:checked + .slider .moon-icon {
 }
 
 .publications-column-right {
-    flex: 1 1 45%;
-    max-width: 45%;
+    flex: 1 1 65%;
+    max-width: 65%;
     padding-left: 40px;
 }
 
@@ -628,6 +675,8 @@ body.dark {
     --link-hover-color: rgba(255, 165, 0, 1);
     --btn-bg-color: rgba(255, 165, 0, 1);
     --btn-hover-bg-color: rgba(255, 69, 0, 1);
+    --h1-color: rgb(13, 131, 86);
+    --highlight-color: #05213f;
 }
 
 /* Light Theme */
@@ -639,4 +688,6 @@ body.light {
     --link-hover-color: #0056b3;
     --btn-bg-color: rgba(134, 173, 144, 0.9);
     --btn-hover-bg-color: #0056b3;
+    --h1-color: rgb(61, 41, 42);
+    --highlight-color: #c3e6cf;
 }
