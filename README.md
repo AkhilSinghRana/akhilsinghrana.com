@@ -5,6 +5,6 @@ This is code base for akhilsinghrana.com
 
 | Workflow | Status |
 | --- | --- |
-| DeploymentStatus | [![DeploymentStatus](https://github.com/AkhilSinghRana/akhilsinghrana.com/blob/main/.github/workflows/push.yml/badge.svg)](https://github.com/AkhilSinghRana/akhilsinghrana.com/blob/main/.github/workflows/push.yml) |
+| DeploymentStatus | [![DeploymentStatus](https://github.com/AkhilSinghRana/akhilsinghrana.com/actions/workflows/push.yml/badge.svg)](https://github.com/AkhilSinghRana/akhilsinghrana.com/actions/workflows/push.yml) |
 
 ---
