@@ -1,17 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to My Website</title>
-
-    </head>
-    <body>
-        <br>
-        <h1>Welcome to Akhil Singh Rana's Website </h1>
-        <br>
-        <p>content is coming soon. Testing deployment at the moment. simplified yaml
-
-        </p>
-    </body>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akhil Singh Rana | akhilsinghrana.com</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="/static/scripts/css/homepage.css" rel="stylesheet">
 </head>
+<body class="dark">
+    
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <div class="col-md-3 col-lg-2 sidebar">
+                <div class="d-flex flex-column align-items-center">
+                    <img src="../static/Extra/imgs/akhil-pp.jpg" alt="Akhil Singh Rana" class="profile-img mb-4">
+                    <h2>Akhil Singh Rana</h2>
+                    <p>Senior Machine Learning Engineer</p>
+                    
+                    <p>
+                        <a href="https://linkedin.com/in/akhilsinghrana" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>,
+                        <a href="https://github.com/AkhilSinghRana" target="_blank"><i class="bi bi-github"></i> Github</a>,
+                        <a href="https://orcid.org/0000-0001-9630-2051" target="_blank">ORCID</a> 
+                    </p>
+                    
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#home"><i class="bi bi-house-fill"></i> Home</a>
+                    <a class="nav-link" href="#blog"><i class="bi bi-book-half"></i> Blog</a>
+                    <a class="nav-link" href="#about"><i class="bi bi-person-fill"></i> About</a>
+                    <a class="nav-link" href="#publications"><i class="bi bi-brush"></i> Publications</a>
+                    
+                    <br><br>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contact1">
+                        Contact Me
+                    </button>
+
+                </nav>
+                
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                      <input type="checkbox" id="checkbox" checked/>
+                      <div class="slider round">
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                      </div>
+                    </label>
+                </div>
+                
+            </div>
+            <main class="col-md-9 col-lg-10 main-content">
+                <nav class="nav-dots">
+                    <ul>
+                        <li><a href="#home" class="dot"></a></li>
+                        <li><a href="#blog" class="dot"></a></li>
+                        <li><a href="#about" class="dot"></a></li>
+                        <li><a href="#publications" class="dot"></a></li>
+                        
+                        
+                    </ul>
+                </nav>
+                
+                <!-- Vertically centered scrollable modal -->
+                <!-- Modal -->
+                <div class="modal fade" id="contact1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Contact Me</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="contact-form" action="/contact", method="post" enctype="multipart/form-data">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" required>
+                            
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required>
+                            
+                                <label for="message">Message:</label>
+                                <textarea id="message" name="message" required></textarea>
+                            
+                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-custom">Send</button>
+                                </form>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <section id="home" class="home-section">
+
+                    
+                    <div class="row">
+                        
+                        <div class="col-md-4">
+                            <div class="static-content">
+                                <div class="custom-div text-center">
+                                    <h1 >Hi, There!</h1>
+                                    <p class="lead">I'm glad you're here. This space is a little corner of the internet where I share my thoughts, experiences, and interests. Whether you're here to learn more about me, find out about my projects, or just to say hi, I'm happy to have you. Feel free to explore the site, and don't hesitate to reach out if you have any questions or just want to chat. I'm always interested in connecting with new people.</p>
+                                    <a href="#about" class="btn btn-secondary">Read more about me</a> <a href="#blog" class="btn btn-custom">My Blogs</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="custom-div professional-experience">
+                                <h2>Portfolio Overview</h2>
+                                <div class="portfolio-carousel">
+                                    <div class="portfolio-container">
+                                        <div class="portfolio-item active">
+                                            <div class="portfolio-content">
+                                                <p>SAR2Optical using cGANs</p>
+                                                <img src="/static/Extra/imgs/SAR2Optical_Obj.png" alt="SAR2Optical Object">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <p>SAR2Optical using cGANs</p>
+                                            <div class="portfolio-content">
+                                                
+                                                <img src="static/Extra/imgs/Sar2Optical_exp.png" alt="SAR2Optical Experiment">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>SAR2Optical on a bigger area</p>
+                                                <img src="/static/Extra/imgs/Sar2Optical.gif" alt="SAR2Optical Animation">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Corn Phenology Detection</p>
+                                                <img src="static/Extra/imgs/PhenologyDetection1.png" alt="Phenology Detection">
+                                                <img src="static/Extra/imgs/PhenologyDetection.png" alt="Phenology Detection">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Face anonymization</p>
+                                                <img src="static/Extra/imgs/FaceAnonymization.png" alt="Face Anonymization">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Radar Image Segmentation</p>
+                                                <img src="/static/Extra/imgs/LULC_Segmentation_SAR.png" alt="LULC segmentation">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Jammer Signal detection</p>
+                                                <img src="/static/Extra/imgs/JammerClassification_1.png" alt="Jammer Signal DEtection">
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Jammer Signal detection</p>
+                                                
+                                                <img src="/static/Extra/imgs/JammerClassification.png" alt="Jammer signal detection">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Garbage and bad road markings detection from video stream</p>
+                                                <img src="/static/Extra/imgs/pothole_garbage_detection.png" alt="Pothole/bad markings detection">
+                                            </div>
+                                        </div>
+                                        <!-- Add more portfolio items as needed -->
+                                    </div>
+                                    <button class="portfolio-arrow prev">&lt;</button>
+                                    <button class="portfolio-arrow next">&gt;</button>
+                                    <div class="portfolio-indicators"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="blog" class="d-flex align-items-center full-height">
+                    <div class="container">
+                        <div class="featured-blog container-fluid  py-5 mb-5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card border-0">
+                                        <div class="card-body">
+                                            <h2 class="card-title display-4 fst-italic mb-4">Integrating LLMs to your personal Website.</h2>
+                                            <p class="card-text lead mb-3">How to integrate LLMs into your website in 2024. I will be integrating LLAMA3.1 to our webiste...</p>
+                                            <a href="" class="text-primary text-decoration-none">Coming soon...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 position-relative">
+                                <div class="blog-carousel">
+                                    <div class="blog-container d-flex">
+                                        <!-- Blog items here -->
+                                        <div class="blog-item">
+                                            <div class="blog-content">
+                                                <h2>Integrating LLMs to your website</h2>
+                                                <p>How to integrate LLMs to your websites, we will be integrating LLAMA3.1...</p>
+                                                <a href="#blog" class="btn btn-custom read-more">Coming Soon</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="blog-item">
+                                            <div class="blog-content">
+                                                <h2>Personal Website Stack in 2024</h2>
+                                                <p>How to create and deploy and publish your personal website in 2024...(Part-1)</p>
+                                                
+                                                <a href="#blog" class="btn btn-custom read-more">Read More</a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="blog-item">
+                                            <div class="blog-content">
+                                                <h2>Personal Website Stack in 2024</h2>
+                                                <p>How to create and deploy and publish your personal website in 2024...(Part-2)</p>
+                                                <a href="#blog" class="btn btn-custom read-more">Read More</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <button class="carousel-arrow prev">&lt;</button>
+                                    <button class="carousel-arrow next">&gt;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="about" class="d-flex align-items-center full-height">
+                    <div class="about-container">
+                        <div class="about-column-left">
+                            <div class="introduction">
+                                <h2>About Me</h2>
+                                <p>I am a Senior Machine Learning Engineer with extensive experience in Artificial Intelligence, Machine Learning, Computer Vision, Deep Learning, Generative AI, Remote Sensing, and Earth Observation. My expertise spans across foundational models, vision transformers, self-supervised learning, and deep reinforcement learning research. </p>
+                                <p>As a Senior Machine Learning Scientist at Planet Labs Germany GmbH, I released <a href="https://rapidai4eo.source.coop/" target="_blank">RapidAI4EO</a> , a corpus of dense time series satellite imagery. Developed a Change Detection product to update Corine Land Cover and Land Use classes using self-supervised learning models like BYOL and DINO. I also engineered pipelines for training complex deep neural networks using contrastive learning based methods, applied self-supervised learning techniques in the agriculture domain for crop classification and phenology phase detection, and created multi-modal models for spatio-temporal Earth Observation data. </p>
+                                    
+                                <p> Prior to that, I worked as a Senior Machine Learning Researcher at Avira, where I directed end-to-end development of face and identity anonymization products using generative AI and face synthesis, and worked on Anomaly detection in network traffic DDOS using Auto Encoders.
+                                </p> 
+                                <p>At Airbus Defence and Space, I led GAN approaches on TerraSAR-X satellite data, improving model performance by 25% by changing network Architecture and adding custom loss functions. I also conducted deep reinforcement learning study for Airbus Defense, achieving a 30% improvement in mission success rates for smart UAVs, served as AI/DataLab Ambassador, promoting AI initiatives and fostering collaboration, and supervised students with their master thesis.
+                                </p>  
+                                <p>As a Top Rated Freelance Developer at Upwork, I assisted over 5 startups as a consultant and full-stack developer, delivering 100% of projects on time, contributing to a 98% increase in client satisfaction.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="publications">
+                    <div class="publications-column-left">
+                        <div class="publication-preview-container">
+                            <img id="publication-preview" src="/static/Extra/imgs/LULC-CD.png" alt="Publication preview">
+                        </div>
+                    </div>
+                    <div class="publications-column-right">
+                        <div class="publications">
+                            <h2>Publications </h2>
+                            <ul id="publication-list">
+                                <li data-preview="/static/Extra/imgs/LULC-CD.png">Land Use Land Classification (LULC) Change Detection with High Cadence Multimodal Image Time Series and Self-Supervised Learning (AGU, 2021), <a href="https://essopenarchive.org/doi/full/10.1002/essoar.10509476.1" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/CornPhenologypaper.png">Detection of Maize Crop Phenology Using Planet Fusion (Remote Sens. 2024), <a href="https://www.mdpi.com/2072-4292/16/15/2730" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/SSl-CropClassification.png">Self-Supervised Learning for Crop Classification Using Planet Fusion (ISPRS, 2023), <a href="https://isprs-archives.copernicus.org/articles/XLVIII-M-1-2023/309/2023/" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/RapidAI4EO.png">Rapidai4Eo: Mono-and Multi-Temporal Deep Learning Models for Updating the Corine Land Cover Product (IEEE, 2022), <a href="https://ieeexplore.ieee.org/document/9883198" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/MaskedAutoEncoder.png">Geography-Aware Masked Autoencoders for Change Detection in Remote Sensing (EGU, 2023), <a href="https://meetingorganizer.copernicus.org/EGU23/EGU23-2843.html" target="_blank">full paper</a></li>
+                            </ul>
+                        </div>
+                        <div class="education">
+                            <h2>Education</h2>
+                            <ul>
+                                <li>Master's Degree in Computer Science (Major in Artificial Intelligence and Intelligent Systems) <br>- TU Kaiserslautern (2016-2018)</li>
+                                <li>Bachelor's Degree in Computer Science <br>- ITM University (2011-2015)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </section>
+
+                <section id="schedule">
+                    <div>
+                        <h1>Schedule a booking with me</h1>
+                    </div>
+                </section>
+                
+                
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/scripts/js/homepage.js"></script>
+</body>
+</html>
