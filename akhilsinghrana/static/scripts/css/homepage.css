@@ -576,7 +576,7 @@ input:checked + .slider .moon-icon {
 }
 
 .publications-column-left {
-    flex: 1 1 55%;
+    flex: 1 1 35%;
     max-width: 55%;
     display: flex;
     justify-content: center;
@@ -584,8 +584,8 @@ input:checked + .slider .moon-icon {
 }
 
 .publications-column-right {
-    flex: 1 1 45%;
-    max-width: 45%;
+    flex: 1 1 65%;
+    max-width: 75%;
     padding-left: 40px;
 }
 
