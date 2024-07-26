@@ -103,6 +103,15 @@ a:hover{
     align-items: center;
 }
 
+.custom-div {
+    background-color: var(--sidebar-bg-color); /* Dark background color */
+    color: var(--text-color); /* White text color */
+    padding: 20px;
+    border-radius: 40px;
+    height: 100%;
+    margin-left: 10%;
+}
+
 .static-content {
     height: 70%;
     margin-top: 10%;
@@ -343,11 +352,11 @@ input:checked + .slider .moon-icon {
 
 /* Contact Form */
 #contact {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     
-    background-color: #f9f9f9;
+    background-color: var(--background-color);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
@@ -586,7 +595,7 @@ input:checked + .slider .moon-icon {
     padding-left: 40px;
 }
 
-#publication-preview-container {
+.publication-preview-container {
     width: 100%;
     height: 80vh;
     overflow: hidden;
@@ -620,6 +629,11 @@ input:checked + .slider .moon-icon {
 
 #publication-list li:hover {
     background-color: var(--sidebar-bg-color);
+}
+
+#publication-list li.active {
+    background-color: var(--highlight-color);
+    color: white;
 }
 
 @media (max-width: 768px) {

@@ -15,9 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
     
     // Publications
-    const previewImage = document.getElementById('publication-preview');
+    const publicationPreviewImage = document.getElementById('publication-preview');
     const publicationList = document.getElementById('publication-list');
-    
+
+    let publicationCurrentIndex = 0;
+    let publicationAutoScrollInterval;
     // Portfolio carousel
     const portfolioCarousel = document.querySelector('.portfolio-carousel');
     const portfolioContainer = portfolioCarousel?.querySelector('.portfolio-container');
@@ -149,16 +151,39 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleSwitch?.addEventListener('change', switchTheme, false);
 
     // Preview Publications
+    function updatePublicationPreview(item) {
+        const previewSrc = item.getAttribute('data-preview');
+        publicationPreviewImage.src = previewSrc;
+        document.querySelectorAll('#publication-list li').forEach(li => li.classList.remove('active'));
+        item.classList.add('active');
+    }
+    
+    function publicationAutoScroll() {
+        const items = publicationList.querySelectorAll('li');
+        updatePublicationPreview(items[publicationCurrentIndex]);
+        publicationCurrentIndex = (publicationCurrentIndex + 1) % items.length;
+    }
+    
+    function startPublicationAutoScroll() {
+        stopPublicationAutoScroll();
+        publicationAutoScrollInterval = setInterval(publicationAutoScroll, 3000);
+    }
+    
+    function stopPublicationAutoScroll() {
+        clearInterval(publicationAutoScrollInterval);
+    }
+    
     publicationList?.addEventListener('click', function(e) {
         const clickedItem = e.target.closest('li');
-        if (clickedItem && previewImage) {
-            const previewSrc = clickedItem.getAttribute('data-preview');
-            previewImage.src = previewSrc;
+        if (clickedItem && publicationPreviewImage) {
+            updatePublicationPreview(clickedItem);
+            stopPublicationAutoScroll();
+            startPublicationAutoScroll(); // Restart auto-scroll after manual selection
         }
     });
-
-    previewImage?.addEventListener('click', function() {
-        const activeItem = publicationList?.querySelector(`li[data-preview="${previewImage.src}"]`);
+    
+    publicationPreviewImage?.addEventListener('click', function() {
+        const activeItem = publicationList?.querySelector('li.active');
         if (activeItem) {
             const officialLink = activeItem.querySelector('a')?.getAttribute('href');
             if (officialLink) {
@@ -166,6 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+    
+    publicationList?.addEventListener('mouseenter', stopPublicationAutoScroll);
+    publicationList?.addEventListener('mouseleave', startPublicationAutoScroll);
+    
+    // Start auto-scrolling when the page loads
+    startPublicationAutoScroll();
 
     // Portfolio Section
     function updatePortfolioCarousel() {

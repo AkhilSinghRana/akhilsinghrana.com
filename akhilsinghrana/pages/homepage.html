@@ -31,7 +31,11 @@
                     <a class="nav-link" href="#about"><i class="bi bi-person-fill"></i> About</a>
                     <a class="nav-link" href="#publications"><i class="bi bi-brush"></i> Publications</a>
                     <a class="nav-link" href="#schedule"><i class="bi bi-calendar-fill"></i> Schedule Meeting</a>
-                    <a class="nav-link" href="#contact"><i class="bi bi-envelope-fill"></i> Contact</a>
+                    
+                    <br><br>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contact1">
+                        Contact Me
+                    </button>
 
                 </nav>
                 
@@ -55,24 +59,57 @@
                         <li><a href="#about" class="dot"></a></li>
                         <li><a href="#publications" class="dot"></a></li>
                         <li><a href="#schedule" class="dot"></a></li>
-                        <li><a href="#contact" class="dot"></a></li>
+                        
                         
                     </ul>
                 </nav>
+                
+                <!-- Vertically centered scrollable modal -->
+                <!-- Modal -->
+                <div class="modal fade" id="contact1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Contact Me</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="contact-form">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" required></textarea>
+                        
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-custom">Send</button>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                 <section id="home" class="home-section">
+
+                    
                     <div class="row">
                         
                         <div class="col-md-4">
                             <div class="static-content">
-                                <div class="static-content-inner">
+                                <div class="custom-div text-center">
                                     <h1 >Hi, There!</h1>
                                     <p class="lead">I'm glad you're here. This space is a little corner of the internet where I share my thoughts, experiences, and interests. Whether you're here to learn more about me, find out about my projects, or just to say hi, I'm happy to have you. Feel free to explore the site, and don't hesitate to reach out if you have any questions or just want to chat. I'm always interested in connecting with new people.</p>
-                                    <a href="#about" class="btn btn-custom">Read more about me</a>
+                                    <a href="#about" class="btn btn-secondary">Read more about me</a> <a href="#blog" class="btn btn-custom">My Blogs</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="professional-experience">
+                            <div class="custom-div professional-experience">
                                 <h2>Portfolio Overview</h2>
                                 <div class="portfolio-carousel">
                                     <div class="portfolio-container">
@@ -84,7 +121,9 @@
                                             </div>
                                         </div>
                                         <div class="portfolio-item">
+                                            <p>SAR2Optical using cGANs</p>
                                             <div class="portfolio-content">
+                                                
                                                 <img src="static/Extra/imgs/Sar2Optical_exp.png" alt="SAR2Optical Experiment">
                                             </div>
                                         </div>
@@ -96,14 +135,27 @@
                                         </div>
                                         <div class="portfolio-item">
                                             <div class="portfolio-content">
+                                                <p>Corn Phenology Detection</p>
+                                                <img src="static/Extra/imgs/PhenologyDetection1.png" alt="Phenology Detection">
+                                                <img src="static/Extra/imgs/PhenologyDetection.png" alt="Phenology Detection">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
+                                                <p>Face anonymization</p>
+                                                <img src="static/Extra/imgs/FaceAnonymization.png" alt="Face Anonymization">
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-item">
+                                            <div class="portfolio-content">
                                                 <p>Radar Image Segmentation</p>
-                                                <img src="/static/Extra/imgs/LULC_Segmentation_SAR.png" alt="SAR2Optical Animation">
+                                                <img src="/static/Extra/imgs/LULC_Segmentation_SAR.png" alt="LULC segmentation">
                                             </div>
                                         </div>
                                         <div class="portfolio-item">
                                             <div class="portfolio-content">
                                                 <p>Jammer Signal detection</p>
-                                                <img src="/static/Extra/imgs/JammerClassification_1.png" alt="SAR2Optical Animation">
+                                                <img src="/static/Extra/imgs/JammerClassification_1.png" alt="Jammer Signal DEtection">
                                                 
                                             </div>
                                         </div>
@@ -112,13 +164,13 @@
                                             <div class="portfolio-content">
                                                 <p>Jammer Signal detection</p>
                                                 
-                                                <img src="/static/Extra/imgs/JammerClassification.png" alt="SAR2Optical Animation">
+                                                <img src="/static/Extra/imgs/JammerClassification.png" alt="Jammer signal detection">
                                             </div>
                                         </div>
                                         <div class="portfolio-item">
                                             <div class="portfolio-content">
                                                 <p>Garbage and bad road markings detection from video stream</p>
-                                                <img src="/static/Extra/imgs/pothole_garbage_detection.png" alt="SAR2Optical Animation">
+                                                <img src="/static/Extra/imgs/pothole_garbage_detection.png" alt="Pothole/bad markings detection">
                                             </div>
                                         </div>
                                         <!-- Add more portfolio items as needed -->
@@ -139,8 +191,8 @@
                                     <div class="card border-0">
                                         <div class="card-body">
                                             <h2 class="card-title display-4 fst-italic mb-4">Integrating LLMs to your personal Website.</h2>
-                                            <p class="card-text lead mb-3">How to integrate LLMs into your website in 2024. I will be integrating Mistral LLM to this website. Stay tuned..</p>
-                                            <a href="" class="text-primary text-decoration-none">Coming next...</a>
+                                            <p class="card-text lead mb-3">How to integrate LLMs into your website in 2024. I will be integrating LLAMA3.1 to our webiste...</p>
+                                            <a href="" class="text-primary text-decoration-none">Coming soon...</a>
                                         </div>
                                     </div>
                                 </div>
@@ -153,17 +205,26 @@
                                         <!-- Blog items here -->
                                         <div class="blog-item">
                                             <div class="blog-content">
-                                                <h2>Personal Website in 2024</h2>
-                                                <p>How to create and deploy a personal website in 2024...</p>
-                                                
-                                                <a href="#" class="btn btn-custom read-more">Read More</a>
+                                                <h2>Integrating LLMs to your website</h2>
+                                                <p>How to integrate LLMs to your websites, we will be integrating LLAMA3.1...</p>
+                                                <a href="#blog" class="btn btn-custom read-more">Coming Soon</a>
                                             </div>
                                         </div>
+
                                         <div class="blog-item">
                                             <div class="blog-content">
-                                                <h2>Integrate LLM to websites in 2024</h2>
-                                                <p>How to integrate LLM to any website in 2024...</p>
-                                                <a href="#" class="btn btn-custom read-more">Read More</a>
+                                                <h2>Personal Website Stack in 2024</h2>
+                                                <p>How to create and deploy and publish your personal website in 2024...(Part-1)</p>
+                                                
+                                                <a href="#blog" class="btn btn-custom read-more">Read More</a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="blog-item">
+                                            <div class="blog-content">
+                                                <h2>Personal Website Stack in 2024</h2>
+                                                <p>How to create and deploy and publish your personal website in 2024...(Part-2)</p>
+                                                <a href="#blog" class="btn btn-custom read-more">Read More</a>
                                             </div>
                                         </div>
                                         
@@ -196,21 +257,19 @@
                 </section>
                 <section id="publications">
                     <div class="publications-column-left">
-                        <div id="publication-preview-container">
-                            
+                        <div class="publication-preview-container">
                             <img id="publication-preview" src="/static/Extra/imgs/LULC-CD.png" alt="Publication preview">
                         </div>
-                        
                     </div>
                     <div class="publications-column-right">
                         <div class="publications">
-                            <h2>Publications <small class="text-body-secondary" >(* Bullets are clickable)</small></h2>
-                            
+                            <h2>Publications </h2>
                             <ul id="publication-list">
-                                <li data-preview="/static/Extra/imgs/LULC-CD.png">Land Use Land Classification (LULC) Change Detection with High Cadence Multimodal Image Time Series and Self-Supervised Learning (AGU, 2021),  <a href="https://essopenarchive.org/doi/full/10.1002/essoar.10509476.1" target="_blank">full paper</a> </li>
-                                <li data-preview="/static/Extra/imgs/SSl-CropClassification.png" >Self-Supervised Learning for Crop Classification Using Planet Fusion (ISPRS, 2023), <a href="https://isprs-archives.copernicus.org/articles/XLVIII-M-1-2023/309/2023/" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/LULC-CD.png">Land Use Land Classification (LULC) Change Detection with High Cadence Multimodal Image Time Series and Self-Supervised Learning (AGU, 2021), <a href="https://essopenarchive.org/doi/full/10.1002/essoar.10509476.1" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/CornPhenologypaper.png">Detection of Maize Crop Phenology Using Planet Fusion (Remote Sens. 2024), <a href="https://www.mdpi.com/2072-4292/16/15/2730" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/SSl-CropClassification.png">Self-Supervised Learning for Crop Classification Using Planet Fusion (ISPRS, 2023), <a href="https://isprs-archives.copernicus.org/articles/XLVIII-M-1-2023/309/2023/" target="_blank">full paper</a></li>
                                 <li data-preview="/static/Extra/imgs/RapidAI4EO.png">Rapidai4Eo: Mono-and Multi-Temporal Deep Learning Models for Updating the Corine Land Cover Product (IEEE, 2022), <a href="https://ieeexplore.ieee.org/document/9883198" target="_blank">full paper</a></li>
-                                <li data-preview="/static/Extra/imgs/MaskedAutoEncoder.png" >Geography-Aware Masked Autoencoders for Change Detection in Remote Sensing (EGU, 2023), <a href="https://meetingorganizer.copernicus.org/EGU23/EGU23-2843.html" target="_blank">full paper</a></li>
+                                <li data-preview="/static/Extra/imgs/MaskedAutoEncoder.png">Geography-Aware Masked Autoencoders for Change Detection in Remote Sensing (EGU, 2023), <a href="https://meetingorganizer.copernicus.org/EGU23/EGU23-2843.html" target="_blank">full paper</a></li>
                             </ul>
                         </div>
                         <div class="education">
@@ -229,23 +288,8 @@
                         <h1>Schedule a booking with me</h1>
                     </div>
                 </section>
-                <section id="contact" class="d-flex align-items-center">
-                    <div class="row w-100">
-                      <h1>Contact Me</h1>
-                      <form id="contact-form">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                  
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                  
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" required></textarea>
-                  
-                        <button type="submit">Send</button>
-                      </form>
-                    </div>
-                  </section>
+                
+                
             </main>
         </div>
     </div>
