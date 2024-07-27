@@ -62,7 +62,26 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', setActiveSection);
     window.addEventListener('load', setActiveSection);
 
-    // Carousel functionality
+    // Blog Modal loading
+    const blogModal = document.getElementById('blogModal');
+    const blogContent = document.getElementById('blogContent');
+
+    blogModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const blogFile = button.getAttribute('data-blog');
+        
+        fetch(blogFile)
+            .then(response => response.text())
+            .then(html => {
+                blogContent.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading blog content:', error);
+                blogContent.innerHTML = '<p>Error loading blog content. Please try again later.</p>';
+            });
+    });
+    
+    // Blog Carousel functionality
     function updateCarousel() {
         if (!blogContainer || !blogItems?.length) return;
         const itemWidth = blogItems[0].offsetWidth;

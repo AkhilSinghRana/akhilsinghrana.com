@@ -23,9 +23,14 @@ app.mount("/static", StaticFiles(directory="akhilsinghrana/static", html=True), 
 
 templates = Jinja2Templates(directory="akhilsinghrana/pages")
 
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse({"request": request}, "homepage.html")
+
+@app.get("/blog/{blog_name}", response_class=HTMLResponse)
+async def read_blog(request: Request, blog_name: str):
+    return templates.TemplateResponse(f"{blog_name}.html", {"request": request})
 
 @app.post("/contact")
 async def contact(request: Request, name: str = Form(...), email: str = Form(...), message: str = Form(...)):
