@@ -9,36 +9,29 @@
     <link href="/static/scripts/css/homepage.css" rel="stylesheet">
 </head>
 <body class="dark">
-    
     <div class="container-fluid p-0">
         <div class="row g-0">
             <div class="col-md-3 col-lg-2 sidebar">
                 <div class="d-flex flex-column align-items-center">
                     <img src="../static/Extra/imgs/akhil-pp.jpg" alt="Akhil Singh Rana" class="profile-img mb-4">
-                    <h2>Akhil Singh Rana</h2>
-                    <p>Senior Machine Learning Engineer</p>
-                    
-                    <p>
+                    <h2 class="text-center">Akhil Singh Rana</h2>
+                    <p class="text-center">Senior Machine Learning Engineer</p>
+                    <p class="text-center">
                         <a href="https://linkedin.com/in/akhilsinghrana" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>,
                         <a href="https://github.com/AkhilSinghRana" target="_blank"><i class="bi bi-github"></i> Github</a>,
                         <a href="https://orcid.org/0000-0001-9630-2051" target="_blank">ORCID</a> 
                     </p>
-                    
                 </div>
-                <nav class="nav flex-column">
+                <nav class="nav flex-column align-items-center">
                     <a class="nav-link" href="#home"><i class="bi bi-house-fill"></i> Home</a>
                     <a class="nav-link" href="#blog"><i class="bi bi-book-half"></i> Blog</a>
                     <a class="nav-link" href="#about"><i class="bi bi-person-fill"></i> About</a>
                     <a class="nav-link" href="#publications"><i class="bi bi-brush"></i> Publications</a>
-                    
-                    <br><br>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contact1">
+                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#contact1">
                         Contact Me
                     </button>
-
                 </nav>
-                
-                <div class="theme-switch-wrapper">
+                <div class="theme-switch-wrapper mt-3 text-center">
                     <label class="theme-switch" for="checkbox">
                       <input type="checkbox" id="checkbox" checked/>
                       <div class="slider round">
@@ -48,7 +41,6 @@
                       </div>
                     </label>
                 </div>
-                
             </div>
             <main class="col-md-9 col-lg-10 main-content">
                 <nav class="nav-dots">
@@ -213,7 +205,7 @@
                                                 <h2>Personal Website Stack in 2024</h2>
                                                 <p>How to create and deploy and publish your personal website in 2024...(Part-1)</p>
                                                 
-                                                <a href="#blog" class="btn btn-custom read-more">Read More</a>
+                                                <a href="#blog" class="btn btn-custom read-more" data-bs-toggle="modal" data-bs-target="#blogModal" data-blog="/blog/blogWebsiteStackPart-1">Read More</a>
                                             </div>
                                         </div>
                                         
@@ -221,7 +213,7 @@
                                             <div class="blog-content">
                                                 <h2>Personal Website Stack in 2024</h2>
                                                 <p>How to create and deploy and publish your personal website in 2024...(Part-2)</p>
-                                                <a href="#blog" class="btn btn-custom read-more">Read More</a>
+                                                <a href="#blog" class="btn btn-custom read-more" data-bs-toggle="modal" data-bs-target="#blogModal" data-blog="/blog/blogWebsiteStackPart-2">Read More</a>
                                             </div>
                                         </div>
                                         
@@ -233,7 +225,20 @@
                         </div>
                     </div>
                 </section>
-
+                <!-- Blog Modal -->
+                <div class="modal fade" id="blogModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="blogModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title" id="blogModalLabel">Complete Blog</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="blogContent">
+                                <!-- Blog content will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <section id="about" class="d-flex align-items-center full-height">
                     <div class="about-container">
                         <div class="about-column-left">
@@ -279,12 +284,7 @@
                     </div>
                     
                 </section>
-
-                <section id="schedule">
-                    <div>
-                        <h1>Schedule a booking with me</h1>
-                    </div>
-                </section>
+                
                 
                 
             </main>

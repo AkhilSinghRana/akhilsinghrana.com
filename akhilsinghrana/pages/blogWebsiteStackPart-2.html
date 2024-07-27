@@ -1,0 +1,261 @@
+<div class="container my-5">
+    <article>
+        <h1 class="mb-4">Deploying Your Personal Website: From Docker to Google Cloud Run</h1>
+        
+        <p class="lead">In Part 1 of this series, we discussed the tech stack I used to build my personal website. Now, let's dive into the deployment process, where we'll use Docker, GitHub Actions, and Google Cloud Run to get our website up and running smoothly.</p>
+
+        <h2 class="mt-5 mb-4">1. Containerization with Docker</h2>
+
+        <p>The first step in our deployment process is containerizing our application using Docker. This ensures that our application runs consistently across different environments.</p>
+
+        <h3>Creating a Dockerfile</h3>
+
+        <p>Here's a simplified version of the Dockerfile I used for my website:</p>
+
+        <pre><code>
+        #============================================BUILD==============================================================
+        # Use an official Python runtime as a parent image
+        FROM python:3.12-slim-bookworm AS builder
+        
+        # Set the working directory in the container
+        WORKDIR /app
+        
+        RUN apt-get update && apt-get install -y build-essential libssl-dev libffi-dev python3-dev
+        
+        # Poetry deps:
+        RUN pip install poetry==1.8.3
+        ENV POETRY_NO_INTERACTION=1 \
+            POETRY_VIRTUALENVS_IN_PROJECT=1 \
+            POETRY_VIRTUALENVS_CREATE=1 \
+            POETRY_CACHE_DIR=/tmp/poetry_cache
+        
+        COPY poetry.lock pyproject.toml ./
+        
+        # Install any needed packages specified in pyproject.toml or poetry.lock
+        RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
+        
+        #===========================================RUNTIME============================================================
+        # Use an official Python runtime as a parent image
+        FROM python:3.12-slim-bookworm AS runtime
+        ENV VIRTUAL_ENV=/app/.venv
+        ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+        
+        COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+        
+        # Set the working directory in the container
+        WORKDIR /app
+        COPY akhilsinghrana ./akhilsinghrana
+        
+        #RUN pip install poetry==1.8.3 && poetry install --without dev 
+        # Make port 8080 available to the world outside this container
+        EXPOSE 8080
+        
+        # Set the maintainer label
+        LABEL maintainer="Akhil Singh Rana <akhilsinghrana@gmail.com>"
+        
+        # Run main.py when the container launches
+        CMD ["fastapi", "run", "./akhilsinghrana/main.py", "--host", "0.0.0.0", "--port", "8080"]DockerfileCopy code
+        </code></pre>
+
+        <p>This Dockerfile sets up a Python environment, installs our dependencies, and configures the container to run our FastAPI application.</p>
+
+        
+        <h2 class="mt-5 mb-4">2. Continuous Integration and Deployment with GitHub Actions</h2>
+
+        <p>To automate our deployment process, we'll use GitHub Actions. This will build our Docker image, push it to Google Container Registry, and deploy it to Google Cloud Run whenever we push changes to our main branch.</p>
+
+        <h3>Creating the GitHub Actions Workflow</h3>
+
+        <p>Here's a simplified version of the GitHub Actions workflow I used:</p>
+
+        <pre><code>
+        name: docker build and publish for akhilsinghrana.com on merge/push
+
+        concurrency:
+        group: production
+        cancel-in-progress: false
+
+        on:
+        push:
+            branches:
+            - main
+
+        jobs:
+        build-and-publish:
+
+            name: Push docker image to google artifact
+            runs-on: ubuntu-latest
+            environment: gcloud
+
+            permissions:
+            contents: read
+            packages: write
+            id-token: write
+            attestations: write
+
+            steps:
+            - name: Checkout code
+            uses: actions/checkout@v4
+
+
+            - name: google-Authentication
+            id: auth
+            uses: 'google-github-actions/auth@v2'
+            with:
+                project_id: $&#123;&#123;vars.PROJECT_NAME&#125;&#125;
+                workload_identity_provider: $&#123;&#123;secrets.WID&#125;&#125;
+                service_account: $&#123;&#123;secrets.SERVICE_ACCOUNT&#125;&#125;
+            
+            - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v2
+
+
+            - name: Authenticate Docker to Google Cloud Artifact Registry
+            run: |
+                gcloud auth configure-docker $&#123;&#123; vars.SERVICE_LOCATION &#125;&#125;-docker.pkg.dev
+            
+            - name: Build and Push Container
+            run: |-
+                docker build -t "$&#123;&#123; vars.ARTIFACT_LOCATION &#125;&#125;:$&#123;&#123; github.sha &#125;&#125;" .
+                docker push "$&#123;&#123; vars.ARTIFACT_LOCATION &#125;&#125;:$&#123;&#123; github.sha &#125;&#125;" 
+            
+
+            env:
+            DOCKER_CLI_EXPERIMENTAL: enabled
+            DOCKER_BUILDKIT: 1
+            
+        deploy:
+            name: deploy to cloud run
+            needs: build-and-publish
+            runs-on: ubuntu-latest
+            environment: gcloud
+
+            permissions:
+            contents: read
+            packages: write
+            id-token: write
+            attestations: write
+
+            steps:
+            
+            - name: google-Authentication
+            id: auth
+            uses: 'google-github-actions/auth@v2'
+            with:
+                project_id: $&#123;&#123;vars.PROJECT_NAME&#125;&#125;
+                workload_identity_provider: $&#123;&#123;secrets.WID&#125;&#125;
+                service_account: $&#123;&#123;secrets.SERVICE_ACCOUNT&#125;&#125;
+            
+            - name: Deploy to cloud run
+            run: |
+                gcloud run deploy $&#123;&#123; vars.SERVICE_NAME &#125;&#125; \
+                --image $&#123;&#123; vars.ARTIFACT_LOCATION &#125;&#125;:$&#123;&#123; github.sha &#125;&#125; \
+                --platform managed \
+                --region $&#123;&#123; vars.SERVICE_LOCATION &#125;&#125; \
+                --allow-unauthenticated \
+                --set-env-vars SMTP_SERVER=$&#123;&#123; vars.SMTP_SERVER &#125;&#125;,SMTP_PORT=$&#123;&#123; vars.SMTP_PORT &#125;&#125;,SMTP_USERNAME=$&#123;&#123; vars.SMTP_USERNAME &#125;&#125;,RECIPIENT_EMAIL=$&#123;&#123; vars.SMTP_RECIPIENT_EMAIL &#125;&#125;,SMTP_PASSWORD=$&#123;&#123; secrets.SMTP_PASSWORD &#125;&#125; \
+                
+        </code></pre>
+
+        <p>This workflow builds our Docker image, pushes it to Google Container Registry, and deploys it to Google Cloud Run.</p>
+
+
+        <h2 class="mt-5 mb-4">3. Deploying to Google Cloud Run</h2>
+
+        <p>Google Cloud Run is a serverless platform that allows us to run stateless containers. It's an excellent choice for personal websites due to its scalability and cost-effectiveness.</p>
+
+        <h3>Benefits of Serverless Deployment on Cloud Run</h3>
+
+        <ul>
+            <li><strong>Automatic Scaling:</strong> Cloud Run automatically scales your application based on incoming traffic. It can handle sudden spikes in traffic and scale down to zero when there are no requests, optimizing costs.</li>
+            <li><strong>Pay-per-use:</strong> You only pay for the actual compute resources you use, down to the nearest 100 milliseconds.</li>
+            <li><strong>No Server Management:</strong> Cloud Run abstracts away all infrastructure management, allowing you to focus solely on your application code.</li>
+            <li><strong>Fast Deployments:</strong> New versions of your application can be deployed quickly and easily.</li>
+            <li><strong>HTTPS by Default:</strong> Cloud Run automatically provisions SSL certificates and handles HTTPS traffic.</li>
+        </ul>
+
+        <h3>Configuring Your Domain</h3>
+
+        <p>While setting up a custom domain is beyond the scope of this article, here's a brief overview of the process:</p>
+
+        <ol>
+            <li>In the Google Cloud Console, navigate to the Cloud Run service for your website.</li>
+            <li>Click on "Manage Custom Domains" and follow the prompts to add your domain.</li>
+            <li>Google will provide you with the necessary DNS records to add to your domain registrar.</li>
+            <li>Add these records to your domain's DNS configuration.</li>
+            <li>Wait for DNS propagation (can take up to 48 hours, but often much faster).</li>
+        </ol>
+
+        <p>Once configured, your personal domain will point to your Cloud Run service, giving your website a professional touch.</p>
+
+        <h2 class="mt-5 mb-4">4. Integrating Contact Functionality with SMTP2Go</h2>
+
+        <p>To handle contact form submissions, I integrated SMTP2Go, which offers 1000 free emails per month. This is more than sufficient for most personal websites.</p>
+
+        <h3>Setting Up SMTP2Go</h3>
+
+        <ol>
+            <li>Sign up for a free account at SMTP2Go.</li>
+            <li>Configure your sender email address and verify your domain if needed.</li>
+            <li>Obtain your SMTP credentials (server, port, username, and password).</li>
+        </ol>
+
+        <h3>Integrating with FastAPI</h3>
+
+        <p>Here's a simplified example of how to send emails using SMTP2Go in FastAPI:</p>
+
+        <pre><code>
+            @app.post("/contact")
+            async def contact(request: Request, name: str = Form(...), email: str = Form(...), message: str = Form(...)):
+                # Simple rate limiting (you might want to use a more robust solution)
+                client_ip = request.client.host
+                if is_rate_limited(client_ip):
+                    raise HTTPException(status_code=429, detail="Too many requests")
+
+                try:
+                    send_email(name, email, message)
+                    # Redirect to the home page after successful form submission
+                    return RedirectResponse(url="/", status_code=303)
+                except Exception as e:
+                    logger.error(f"Error sending email: {str(e)}")
+                    raise HTTPException(status_code=500, detail="Failed to send email")
+                    
+
+            def send_email(name: str, email: str, message: str):
+                smtp_server = os.getenv("SMTP_SERVER")
+                smtp_port = int(os.getenv("SMTP_PORT", 587))
+                smtp_username = os.getenv("SMTP_USERNAME")
+                smtp_password = os.getenv("SMTP_PASSWORD")
+                recipient_email = os.getenv("RECIPIENT_EMAIL")
+
+                msg = MIMEMultipart()
+                msg['From'] = smtp_username
+                msg['To'] = recipient_email
+                msg['Subject'] = f"New Contact Form Submission from {name}"
+
+                body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+                msg.attach(MIMEText(body, 'plain'))
+
+                with smtplib.SMTP(smtp_server, smtp_port) as server:
+                    server.starttls()
+                    server.login(smtp_username, smtp_password)
+                    
+                    server.send_message(msg)
+
+        </code></pre>
+
+        <p>Remember to secure your SMTP credentials using environment variables or secret management tools.</p>
+
+        <h2 class="mt-5 mb-4">Conclusion</h2>
+
+        <p>Deploying a personal website using Docker, GitHub Actions, and Google Cloud Run offers a robust, scalable, and cost-effective solution. The combination of containerization, automated CI/CD, and serverless hosting provides a seamless deployment experience while keeping maintenance overhead to a minimum.</p>
+
+        <p>By leveraging these modern technologies and services like SMTP2Go for contact functionality, you can create a professional and functional personal website that's easy to maintain and update.</p>
+
+        <p>Remember, the complete source code for my website is available on my GitHub repository: <a href="https://github.com/AkhilSinghRana/akhilsinghrana.com">https://github.com/AkhilSinghRana/akhilsinghrana.com</a></p>
+
+        <p>Feel free to explore the code, and don't hesitate to reach out if you have any questions about the implementation or deployment process. Happy coding and deploying!</p>
+
+        
+    </article>
+</div>

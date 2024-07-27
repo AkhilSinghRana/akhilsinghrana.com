@@ -1,0 +1,164 @@
+<article>
+    <h1 class="mb-4">Building a Personal Website in 2024: My Tech Stack</h1>
+    
+    <p class="lead">In 2024, creating a personal website has become more accessible than ever, thanks to a wide array of powerful tools and technologies. In this blog post, I'll walk you through the tech stack I used to build akhilsinghrana.com and explain why I chose these particular technologies. We'll also explore some alternatives that you might consider for your own projects.</p>
+
+    <h2 class="mt-5 mb-4">My Tech Stack</h2>
+
+    <p>Before we dive into the details, here's a quick overview of the technologies I used:</p>
+
+    <ol class="list-group list-group-numbered mb-4">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">Version Control</div>
+                GitHub
+            </div>
+            <i class="fab fa-github tech-icon"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">Backend</div>
+                FastAPI
+            </div>
+            <i class="fas fa-bolt tech-icon"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">Frontend</div>
+                HTML, CSS, JavaScript, Bootstrap 5
+            </div>
+            <i class="fab fa-html5 tech-icon"></i>
+            <i class="fab fa-css3-alt tech-icon"></i>
+            <i class="fab fa-js tech-icon"></i>
+            <i class="fab fa-bootstrap tech-icon"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">Containerization</div>
+                Docker
+            </div>
+            <i class="fab fa-docker tech-icon"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">Deployment (covered in part-2)</div>
+                GitHub Actions, Google Cloud Run
+            </div>
+            <i class="fab fa-github-alt tech-icon"></i>
+            <i class="fab fa-google tech-icon"></i>
+        </li>
+    </ol>
+
+    <p>Let's break down each component and discuss why I chose it for my 2024 website.</p>
+
+    <h3 class="mt-5 mb-3">1. Version Control: GitHub</h3>
+
+    <p><a href="https://github.com" target="_blank">GitHub</a> remains a cornerstone of modern software development in 2024. I use it not only for version control but also for deployment via GitHub Actions (which we'll cover in Part 2 of this blog series).</p>
+
+    <h4>Why GitHub in 2024?</h4>
+    <ul>
+        <li>Robust version control</li>
+        <li>Excellent collaboration features</li>
+        <li>Integrated CI/CD pipelines</li>
+        <li>Large community and ecosystem</li>
+    </ul>
+
+    <h3 class="mt-5 mb-3">2. Backend: FastAPI</h3>
+
+    <p>For the backend of akhilsinghrana.com, I chose <a href="https://fastapi.tiangolo.com/" target="_blank">FastAPI</a>, a modern, fast (high-performance) Python web framework for building APIs.</p>
+
+    <h4>Why FastAPI in 2024?</h4>
+    <ul>
+        <li>High performance: FastAPI is one of the fastest Python frameworks available</li>
+        <li>Easy to use and learn: It's designed to be easy to use and learn, with intuitive APIs</li>
+        <li>Automatic API documentation: FastAPI generates OpenAPI (Swagger) docs automatically</li>
+        <li>Python 3.7+ features: It takes full advantage of Python's type hinting and async features</li>
+    </ul>
+
+    <!-- Placeholder for an image or animation showcasing FastAPI's performance -->
+    <div class="text-center my-4">
+        <img src="/api/placeholder/600/400" alt="FastAPI Performance Chart" class="img-fluid rounded">
+        <p class="text-muted">Image: FastAPI performance comparison (placeholder)</p>
+    </div>
+
+    <h3 class="mt-5 mb-3">3. Frontend: HTML, CSS, JavaScript, Bootstrap 5</h3>
+
+    <p>For the frontend, I stuck with the tried-and-true combination of HTML, CSS, and JavaScript, enhanced with <a href="https://getbootstrap.com/" target="_blank">Bootstrap 5</a> for responsive design and pre-built components.</p>
+
+    <h4>Why this frontend stack in 2024?</h4>
+    <ul>
+        <li>Universal compatibility: These technologies work across all modern browsers</li>
+        <li>Bootstrap 5: Provides a solid foundation for responsive design and consistent UI components</li>
+        <li>Flexibility: This stack allows for both static and dynamic web pages</li>
+        <li>Performance: Vanilla JavaScript can be very performant when used correctly</li>
+    </ul>
+
+    <h3 class="mt-5 mb-3">4. Containerization: Docker</h3>
+
+    <p>I use <a href="https://www.docker.com/" target="_blank">Docker</a> to containerize my website, which provides consistency across different environments and simplifies deployment.</p>
+
+    <h3 class="mt-5 mb-3">5. Deployment</h3>
+
+    <p>I'll be covering the deployment process in Part 2 of this blog series, where we'll dive into:</p>
+    <ul>
+        <li>Using GitHub Actions for continuous integration and deployment</li>
+        <li>Using Google Cloud Registry for storing Docker images</li>
+        <li>Deploying to Google Cloud Run for a serverless setup</li>
+    </ul>
+
+    <h2 class="mt-5 mb-4">Why This Tech Stack in 2024?</h2>
+
+    <p>You might be wondering why I chose this particular stack in 2024, given the myriad of options available. Here are my reasons:</p>
+
+    <ol>
+        <li><strong>Simplicity and Maintainability</strong>: This stack is relatively simple, making it easy to maintain and update over time.</li>
+        <li><strong>Performance</strong>: FastAPI on the backend and vanilla JavaScript on the frontend can deliver excellent performance.</li>
+        <li><strong>Scalability</strong>: This stack can easily scale as my needs grow.</li>
+        <li><strong>Learning Curve</strong>: For developers familiar with Python and basic web technologies, this stack has a gentle learning curve.</li>
+        <li><strong>Cost-Effective</strong>: Many of these technologies are free and open-source, keeping costs down.</li>
+        <li><strong>Containerization</strong>: Docker ensures consistency across development and production environments.</li>
+        <li><strong>Serverless Deployment</strong>: Google Cloud Run allows for easy, scalable, and cost-effective deployment.</li>
+    </ol>
+
+    <h2 class="mt-5 mb-4">Alternative Tech Stacks</h2>
+
+    <p>While this stack works well for my needs, there are several alternatives worth considering in 2024:</p>
+
+    <ol>
+        <li><strong><a href="https://nextjs.org/" target="_blank">Next.js</a> or <a href="https://www.gatsbyjs.com/" target="_blank">Gatsby</a></strong>: For a more React-based approach with server-side rendering capabilities.</li>
+        <li><strong><a href="https://vuejs.org/" target="_blank">Vue.js</a> with <a href="https://nuxtjs.org/" target="_blank">Nuxt</a></strong>: If you prefer Vue over React, this is a solid alternative.</li>
+        <li><strong><a href="https://www.djangoproject.com/" target="_blank">Django</a></strong>: If you need a more batteries-included approach for larger applications.</li>
+        <li><strong><a href="https://svelte.dev/" target="_blank">Svelte</a></strong>: For a compiled approach to frontend development, offering great performance.</li>
+        <li><strong><a href="https://deno.land/" target="_blank">Deno</a> and <a href="https://fresh.deno.dev/" target="_blank">Fresh</a></strong>: If you want to use JavaScript/TypeScript on both frontend and backend.</li>
+    </ol>
+
+    <h2 class="mt-5 mb-4">The Role of LLMs in Website Development</h2>
+
+    <p>It's worth noting that in 2024, Large Language Models (LLMs) have become an invaluable tool in the web development process. I utilized LLMs extensively while designing and developing this website. They helped in several ways:</p>
+
+    <ul>
+        <li>Generating initial HTML and CSS templates</li>
+        <li>Debugging and optimizing code</li>
+        <li>Suggesting best practices and modern design patterns</li>
+        <li>Answering specific questions about implementation details</li>
+    </ul>
+
+    <p>While LLMs don't replace the need for solid coding skills and decision-making, they significantly speed up the development process and can help developers learn new techniques on the fly.</p>
+
+    <!-- Placeholder for an image or animation showcasing LLM-assisted coding -->
+    <div class="text-center my-4">
+        <img src="/api/placeholder/600/400" alt="LLM-assisted coding" class="img-fluid rounded">
+        <p class="text-muted">Image: LLM-assisted coding in action (placeholder)</p>
+    </div>
+
+    <h2 class="mt-5 mb-4">Conclusion</h2>
+
+    <p>Building a personal website in 2024 offers more options than ever before. The stack I've chosen - GitHub, FastAPI, classic frontend technologies, Docker, and Google Cloud - provides a balance of performance, simplicity, flexibility, and scalability that suits my needs perfectly.</p>
+
+    <p>In Part 2 of this series, we'll dive into the deployment process using GitHub Actions, Google Cloud Registry, and Google Cloud Run, so stay tuned!</p>
+
+    <p>Remember, the complete source code for akhilsinghrana.com is available on my GitHub repository: <a href="https://github.com/AkhilSinghRana/akhilsinghrana.com">https://github.com/AkhilSinghRana/akhilsinghrana.com</a></p>
+
+    <p>Feel free to explore the code, and don't hesitate to reach out if you have any questions about my implementation. Check out Part 2 where I explain how I deployed my website using GitHub CI/CD. Happy coding!</p>
+
+</article>

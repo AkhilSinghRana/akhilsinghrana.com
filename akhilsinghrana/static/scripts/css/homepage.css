@@ -197,6 +197,45 @@ a:hover {
     color: var(--background-color);
 }
 
+.modal-content {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--text-color);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--text-color);
+}
+
+.modal-title {
+    color: var(--h1-color);
+}
+
+.btn-close {
+    color: var(--text-color);
+}
+
+#blogContent {
+    color: var(--text-color);
+}
+
+/* You may need to adjust these styles if you're using Bootstrap's default modal styles */
+.modal-header .btn-close {
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 0.75;
+}
+
+/* Ensure the close button is visible in both themes */
+body.dark .modal-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
 /* Ensure carousel arrows are visible in both themes */
 .carousel-arrow {
     background-color: var(--btn-bg-color);
@@ -629,46 +668,84 @@ input:checked + .slider .moon-icon {
     background-color: var(--highlight-color);
     color: white;
 }
-
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
         height: auto;
         position: relative;
+        padding: 1rem;
     }
-    .main-content {
-        margin-left: 0;
-    }
-    .blog-content {
-        width: 80%;
-    }
-    .blog-content h1 {
-        font-size: 2rem;
-    }
-    .nav-dots {
-        right: 10px;
-    }
-    .about-container {
-        flex-direction: column;
-    }
-    .about-column {
-        flex: 1 1 100%;
-    }
-    #publications {
+    
+    #home {
         flex-direction: column;
     }
 
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    
+    .blog-content {
+        width: 100%;
+    }
+    
+    .blog-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .nav-dots {
+        display: none;
+    }
+    
+    .about-container,
+    #publications {
+        flex-direction: column;
+    }
+    
+    .about-column,
     .publications-column-left,
     .publications-column-right {
         flex: 1 1 100%;
         max-width: 100%;
-        padding-left: 0;
+        padding: 1rem;
     }
-
+    
     #publication-preview-container {
-        height: 50vh;
-        margin-bottom: 2rem;
+        height: auto;
+        margin-bottom: 1rem;
     }
+    
+    .profile-img {
+        max-width: 150px;
+        height: auto;
+    }
+    
+    .portfolio-carousel,
+    .blog-carousel {
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .portfolio-item,
+    .blog-item {
+        min-width: 250px;
+    }
+    
+    .carousel-arrow {
+        display: none;
+    }
+    
+    .featured-blog .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .featured-blog .card-text {
+        font-size: 1rem;
+    }
+}
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Dark Theme */
