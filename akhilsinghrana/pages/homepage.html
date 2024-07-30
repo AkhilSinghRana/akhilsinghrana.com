@@ -24,7 +24,7 @@
                 </div>
                 <nav class="nav flex-column align-items-center">
                     <a class="nav-link" href="#home"><i class="bi bi-house-fill"></i> Home</a>
-                    <a class="nav-link" href="#blog"><i class="bi bi-book-half"></i> Blog</a>
+                    <a class="nav-link" href="#blog"><i class="bi bi-book-half"></i> Blogs</a>
                     <a class="nav-link" href="#about"><i class="bi bi-person-fill"></i> About</a>
                     <a class="nav-link" href="#publications"><i class="bi bi-brush"></i> Publications</a>
                     <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#contact1">
@@ -64,7 +64,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="contact-form" action="/contact", method="post" enctype="multipart/form-data">
+                                <form id="contact-form" action="/contact", class="modal-body" method="post" enctype="multipart/form-data">
                                 <label for="name">Name:</label>
                                 <input type="text" id="name" name="name" required>
                             
@@ -82,12 +82,10 @@
                                 </div>
                         </div>
                     </div>
+                
                 </div>
                 <section id="home" class="home-section">
-
-                    
                     <div class="row">
-                        
                         <div class="col-md-4">
                             <div class="static-content">
                                 <div class="custom-div text-center">
@@ -172,19 +170,31 @@
                         </div>
                     </div>
                 </section>
+
                 <section id="blog" class="d-flex align-items-center full-height">
                     <div class="container">
-                        <div class="featured-blog container-fluid  py-5 mb-5">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card border-0">
-                                        <div class="card-body">
-                                            <h2 class="card-title display-4 fst-italic mb-4">Integrating LLMs to your personal Website.</h2>
-                                            <p class="card-text lead mb-3">How to integrate LLMs into your website in 2024. I will be integrating LLAMA3.1 to our webiste...</p>
-                                            <a href="" class="text-primary text-decoration-none">Coming soon...</a>
-                                        </div>
-                                    </div>
+                        <div class="card mb-3 featured-blog" >
+                            <div class="row g-0">
+                              <div class="col-md-3">
+                                <img src="/static/Extra/imgs/RAGPipeline.png" class="img-fluid rounded-start" alt="Featured blog image">
+                              </div>
+                              <div class="col-md-9">
+                                <div class="card-body">
+                                  <h2 class=" display-4 fst-italic">Integrating LLMs to your personal Website.</h2>
+                                  <p class="card-text">How to integrate LLMs into your website in 2024. This blog post will guide you through integrating a sophisticated, free, and open-source chatbot based on LLAMA 3.1. We will be using state-of-the-art tools and techniques, with a focus on the Retrieval-Augmented Generation (RAG) approach....</p>
+                                  <h3>Key Highlights</h3>
+                                    <ul >
+                                        <li class="list-group-item">Completely free and open-source implementation</li>
+                                        <li class="list-group-item">Use of Meta's latest Llama 3.1 model</li>
+                                        <li class="list-group-item">Advanced RAG (Retrieval-Augmented Generation) approach</li>
+                                        <li class="list-group-item">Hugging Face embeddings and Groq LLM integration with Langchain</li>
+                                    </ul>
+                                    <br><br><br>
+                                  <p class="card-text">
+                                    <a href="#blog" class="btn btn-custom read-more" data-bs-toggle="modal" data-bs-target="#blogModal" data-blog="/blog/blogRAG_Groq_Chatbot">Read More...</a>
+                                  </p>
                                 </div>
+                              </div>
                             </div>
                         </div>
                         <div class="row">
@@ -196,13 +206,13 @@
                                             <div class="blog-content">
                                                 <h2>Integrating LLMs to your website</h2>
                                                 <p>How to integrate LLMs to your websites, we will be integrating LLAMA3.1...</p>
-                                                <a href="#blog" class="btn btn-custom read-more">Coming Soon</a>
+                                                <a href="#blog" class="btn btn-custom read-more" data-bs-toggle="modal" data-bs-target="#blogModal" data-blog="/blog/blogRAG_Groq_Chatbot">Read More</a>
                                             </div>
                                         </div>
 
                                         <div class="blog-item">
                                             <div class="blog-content">
-                                                <h2>Personal Website Stack in 2024</h2>
+                                                <h2>Personal Website Stack in 2024 - (Part-1)</h2>
                                                 <p>How to create and deploy and publish your personal website in 2024...(Part-1)</p>
                                                 
                                                 <a href="#blog" class="btn btn-custom read-more" data-bs-toggle="modal" data-bs-target="#blogModal" data-blog="/blog/blogWebsiteStackPart-1">Read More</a>
@@ -211,7 +221,7 @@
                                         
                                         <div class="blog-item">
                                             <div class="blog-content">
-                                                <h2>Personal Website Stack in 2024</h2>
+                                                <h2>Personal Website Stack in 2024 - (Part-2)</h2>
                                                 <p>How to create and deploy and publish your personal website in 2024...(Part-2)</p>
                                                 <a href="#blog" class="btn btn-custom read-more" data-bs-toggle="modal" data-bs-target="#blogModal" data-blog="/blog/blogWebsiteStackPart-2">Read More</a>
                                             </div>
@@ -290,7 +300,32 @@
             </main>
         </div>
     </div>
+
+    <button id="chatbot-toggle" class="btn btn-custom rounded-circle" data-bs-toggle="modal" data-bs-target="#chatModal">
+        <i class="bi bi-chat-dots"></i>
+    </button>
+
+    <div class="modal fade " id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel">Chat powered by LLAMA3.1</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="chat-messages" class="mb-3"></div>
+                    <form id="chat-form">
+                        <div class="input-group">
+                            <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
+                            <button class="btn btn-primary" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/scripts/js/homepage.js"></script>
+    <script src="/static/scripts/js/chatbot.js"></script>
 </body>
 </html>
