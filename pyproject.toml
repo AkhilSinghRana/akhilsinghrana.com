@@ -10,12 +10,25 @@ repository = "https://github.com/akhilsinghrana/akhilsinghrana.com"
 
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">3.12, <3.13"
 fastapi = "^0.111.0"
 uvicorn = "^0.30.1"
 jinja2 = "^3.1.4"
 
 # dev dependencies
+together = "^1.2.3"
+langchain-community = "^0.2.10"
+langchain = "^0.2.11"
+tavily-python = "^0.3.5"
+langgraph = "^0.1.16"
+matplotlib = "^3.9.1"
+scikit-learn = "^1.5.1"
+langchainhub = "^0.1.20"
+langchain-groq = "^0.1.8"
+langchain-chroma = "^0.1.2"
+sentence-transformers = "^3.0.1"
+beautifulsoup4 = "^4.12.3"
+unstructured = "^0.15.0"
 [tool.poetry.group.dev]
 optional = true
 

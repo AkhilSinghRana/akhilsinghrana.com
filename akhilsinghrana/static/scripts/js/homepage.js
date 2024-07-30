@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 blogContent.innerHTML = '<p>Error loading blog content. Please try again later.</p>';
             });
     });
-    
+
     // Blog Carousel functionality
     function updateCarousel() {
         if (!blogContainer || !blogItems?.length) return;
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startPortfolioAutoScroll() {
-        portfolioIntervalId = setInterval(nextPortfolioSlide, 5000);
+        portfolioIntervalId = setInterval(nextPortfolioSlide, 6000);
     }
 
     function stopPortfolioAutoScroll() {
@@ -260,13 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
         portfolioPrevBtn.addEventListener('click', () => {
             prevPortfolioSlide();
             stopPortfolioAutoScroll();
-            startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
+            //startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
         });
 
         portfolioNextBtn.addEventListener('click', () => {
             nextPortfolioSlide();
             stopPortfolioAutoScroll();
-            startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
+            //startPortfolioAutoScroll(); // Restart auto-scroll after manual navigation
         });
 
         portfolioCarousel?.addEventListener('mouseenter', stopPortfolioAutoScroll);
