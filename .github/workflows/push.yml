@@ -79,6 +79,7 @@ jobs:
       run: |
         gcloud run deploy ${{ vars.SERVICE_NAME }} \
         --image ${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }} \
+        --memory 1G\
         --platform managed \
         --region ${{ vars.SERVICE_LOCATION }} \
         --allow-unauthenticated \
