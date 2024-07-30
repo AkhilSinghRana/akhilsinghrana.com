@@ -135,7 +135,7 @@ class ChatMessage(BaseModel):
 #     return full_response
 
 
-custom_chatBot = RAGChat(recreateVectorDB=True, folder="./akhilsinghrana/pages")
+custom_chatBot = RAGChat(recreateVectorDB=False, folder="./akhilsinghrana/pages")
 
 
 @app.post("/api/chat")
