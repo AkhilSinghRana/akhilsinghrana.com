@@ -27,7 +27,7 @@ load_dotenv()  # This is for testing the setup locally make sure to includer VAr
 
 class RAGChat:
     def __init__(self, recreateVectorDB=False, **kwargs) -> None:
-        self.persistent_directory = "./db/chroma_db"
+        self.persistent_directory = "./akhilsinghrana/db/chroma_db"
         self.embeddings = self.get_embeddings()
         self.retriever = self.get_retriever(recreateVectorDB, **kwargs)
         self.llm = self.get_llm()
