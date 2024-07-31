@@ -26,7 +26,7 @@ scikit-learn = "^1.5.1"
 langchainhub = "^0.1.20"
 langchain-groq = "^0.1.8"
 langchain-chroma = "^0.1.2"
-sentence-transformers = "^3.0.1"
+#sentence-transformers = "^3.0.1"
 beautifulsoup4 = "^4.12.3"
 unstructured = "^0.15.0"
 [tool.poetry.group.dev]
