@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Integrating Cutting-Edge Chatbots into Websites in 2024: A Free and Open-Source Approach</title>
+    <title>Building a Free, Serverless AI Chatbot in 2024: RAG, Llama 3.1, and Open-Source Magic</title>
     
     <!-- Meta description -->
-    <meta name="description" content="Learn how to integrate a sophisticated, free, and open-source chatbot into your website using RAG, Llama 3.1, Groq, Langchain and other cutting-edge AI tools in 2024.">
+    <meta name="description" content="Learn how to create a powerful, free, and serverless AI chatbot using RAG, Llama 3.1, Groq, Langchain, and Hugging Face in 2024. Perfect for websites and applications.">
     
     <!-- Open Graph meta tags for social sharing -->
-    <meta property="og:title" content="Integrating Cutting-Edge Chatbots in 2024: Free & Open-Source">
-    <meta property="og:description" content="Discover how to add a powerful, free chatbot to your website using RAG, Llama 3.1, Groq and other state-of-the-art AI tools.">
+    <meta property="og:title" content="Free Serverless AI Chatbot: RAG, Llama 3.1, and Open-Source in 2024">
+    <meta property="og:description" content="Discover how to build a sophisticated, cost-free chatbot using RAG, Llama 3.1, Groq, and Hugging Face APIs. No server required!">
     <meta property="og:image" content="https://akhilsinghrana.com/#blog">
     <meta property="og:url" content="https://akhilsinghrana.com/#blog">
     <meta property="og:type" content="article">
     
     <!-- Twitter Card meta tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Integrating Cutting-Edge Chatbots in 2024: Free & Open-Source">
-    <meta name="twitter:description" content="Learn to add a powerful, free chatbot to your website using RAG, Llama 3.1, Groq and other advanced AI tools.">
+    <meta name="twitter:title" content="Free Serverless AI Chatbot: RAG, Llama 3.1, and Open-Source in 2024">
+    <meta name="twitter:description" content="Build a powerful, free chatbot using RAG, Llama 3.1, Groq, and Hugging Face APIs. No server needed!">
     <meta name="twitter:image" content="https://akhilsinghrana.com/#blog">
     
     <!-- Structured data for rich snippets -->
@@ -26,8 +26,8 @@
     {
       "@context": "https://schema.org",
       "@type": "TechArticle",
-      "headline": "Integrating Cutting-Edge Chatbots into Websites in 2024: A Free and Open-Source Approach",
-      "description": "Learn how to integrate a sophisticated, free, and open-source chatbot into your website using RAG, Llama 3.1, Groq and other cutting-edge AI tools in 2024.",
+      "headline": "Building a Free, Serverless AI Chatbot in 2024: RAG, Llama 3.1, and Open-Source Magic",
+      "description": "Learn how to create a powerful, free, and serverless AI chatbot using RAG, Llama 3.1, Groq, Langchain, and Hugging Face in 2024. Perfect for websites and applications.",
       "image": "https://akhilsinghrana.com/#blog",
       "author": {
         "@type": "Person",
@@ -35,113 +35,105 @@
       },
       "datePublished": "2024-07-30",
       "publisher": {
-        "@type": "Personal",
-        "name": "akhilsinghrana.com",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://akhilsinghrana.com"
-        }
+        "@type": "Person",
+        "name": "Akhil Singh Rana",
+        "url": "https://akhilsinghrana.com"
       }
     }
     </script>
 </head>
 <body>
 <article>
-    <h1>Integrating Cutting-Edge LLM based Chatbots into Websites in 2024: A Free and Open-Source Approach</h1>
+    <h1>Building a Free, Serverless AI Chatbot in 2024: RAG, Llama 3.1, and Open-Source Magic</h1>
     
-    <p class="lead">In 2024, chatbots have become an essential component of modern websites. This blog post will guide you through integrating a sophisticated, free, and open-source chatbot into your website using state-of-the-art tools and techniques, with a focus on the Retrieval-Augmented Generation (RAG) approach.</p>
+    <p class="lead">In 2024, AI chatbots have become indispensable for websites and applications. This guide will walk you through creating a sophisticated, completely free, and serverless chatbot using cutting-edge technologies and the powerful Retrieval-Augmented Generation (RAG) approach.</p>
     
     <h2>Key Highlights</h2>
     <ul class="list-group">
-        <li class="list-group-item">Completely free and open-source implementation</li>
-        <li class="list-group-item">Use of Meta's latest Llama 3.1 model</li>
+        <li class="list-group-item">100% free and open-source implementation</li>
+        <li class="list-group-item">Serverless architecture using Hugging Face and Groq APIs</li>
+        <li class="list-group-item">Utilization of Meta's latest Llama 3.1 model via Groq</li>
         <li class="list-group-item">Advanced RAG (Retrieval-Augmented Generation) approach</li>
-        <li class="list-group-item">Hugging Face embeddings and Groq LLM integration with Langchain</li>
+        <li class="list-group-item">Integration of Hugging Face embeddings and Chroma vector database</li>
+        <li class="list-group-item">Dynamic web search capabilities with Tavily Search</li>
+        <li class="list-group-item">Efficient document processing with HTMLHeaderTextSplitter</li>
     </ul>
     <br>
-    <h2>Understanding RAG: The Core of Our Chatbot</h2>
-    
-   
+    <h2>Understanding Our Enhanced RAG Approach</h2>
     
     <div class="row">
         <div class="image-placeholder col-md-3">
             <img src="/static/Extra/imgs/RAGPipeline.png" alt="RAG flow">
-            
         </div>
         <div class="col-md-9">
-        <h3>Explanation of the RAG Pipeline Diagram</h3>
+        <h3>The RAG Pipeline: A Closer Look</h3>
 
-            <p>The image above illustrates the RAG (Retrieval-Augmented Generation) pipeline used in our chatbot implementation. Let's break down each step:</p>
+            <p>Our implementation takes the RAG approach to the next level:</p>
 
             <ol>
-                <li><strong>Start:</strong> The process begins when a user submits a question.</li>
+                <li><strong>Efficient Document Processing:</strong> We use HTMLHeaderTextSplitter to intelligently chunk HTML documents based on headers, ensuring context-aware text splitting.</li>
                 
-                <li><strong>Retrieve:</strong> The system retrieves relevant documents from the vector database based on the user's query.</li>
+                <li><strong>Advanced Retrieval:</strong> The system retrieves relevant documents from the Chroma vector database using Hugging Face embeddings.</li>
                 
-                <li><strong>Grade Documents:</strong> The retrieved documents are evaluated for their relevance to the user's question. This step determines whether the information is sufficient or if a web search is necessary.</li>
+                <li><strong>Intelligent Document Grading:</strong> Retrieved documents are evaluated for relevance using the Llama 3.1 model, determining if web search is necessary.</li>
                 
-                <li><strong>Web Search (Conditional):</strong> If the grading process determines that the retrieved documents aren't sufficiently relevant, a web search is performed to find up-to-date information.</li>
+                <li><strong>Dynamic Web Search:</strong> If needed, Tavily Search API is used to fetch up-to-date information from the web.</li>
                 
-                <li><strong>Generate:</strong> Using the retrieved documents (and web search results if applicable), the language model generates a comprehensive answer to the user's question.</li>
-                
-                <li><strong>End:</strong> The final answer is presented to the user.</li>
+                <li><strong>Context-Aware Generation:</strong> Using Groq's API to access Llama 3.1, the chatbot generates comprehensive answers based on retrieved documents and web search results.</li>
             </ol>
 
-            <p>This pipeline ensures that our chatbot provides accurate, relevant, and up-to-date information by combining the power of our local knowledge base with the ability to search the web when needed.</p>
+            <p>This enhanced pipeline ensures our chatbot provides accurate, relevant, and up-to-date information by seamlessly combining local knowledge with real-time web data.</p>
         </div>
     </div>
     <br>
-    <h2>Our Free and Open-Source Tech Stack</h2>
+    <h2>Our Free and Serverless Tech Stack</h2>
     
-    <h3>1. LangChain</h3>
-    <p>We're using LangChain, an open-source framework for building applications with large language models. It provides tools for document loading, text splitting, embeddings, and vector stores.</p>
+    <h3>1. LangChain: The Orchestrator</h3>
+    <p>LangChain serves as the backbone, providing tools for document loading, text splitting, and workflow management.</p>
     
-    <h3>2. Hugging Face Embeddings (Free)</h3>
-    <p>For creating embeddings of our documents, we're using the free Hugging Face BGE (BAAI/bge-large-en-v1.5) model:</p>
+    <h3>2. Hugging Face Embeddings API (Free)</h3>
+    <p>We leverage the Hugging Face Inference API for creating embeddings, using the powerful BAAI/bge-large-en-v1.5 model:</p>
     
     <pre><code>
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 
-model_name = "BAAI/bge-large-en-v1.5"
-model_kwargs = {"device": "cpu"}
-encode_kwargs = {"normalize_embeddings": True}
-self.embeddings = HuggingFaceBgeEmbeddings(
-model_name=model_name,
-model_kwargs=model_kwargs,
-encode_kwargs=encode_kwargs,
+self.embeddings = HuggingFaceInferenceAPIEmbeddings(
+    api_key=os.environ.get("HF_API_KEY"),
+    model_name="BAAI/bge-large-en-v1.5",
+    encode_kwargs={"normalize_embeddings": True}
 )
     </code></pre>
     
-    <h3>3. Chroma Vector Database (Open-Source)</h3>
-    <p>To store and retrieve our document embeddings efficiently, we're using the open-source Chroma database:</p>
+    <h3>3. Chroma: Open-Source Vector Database</h3>
+    <p>Chroma efficiently stores and retrieves document embeddings:</p>
     
     <pre><code>
 from langchain_chroma import Chroma
 
 vectorstore = Chroma.from_documents(
-doc_splits,
-embedding=self.embeddings,
-persist_directory=persistent_directory,
+    documents=all_splits,
+    embedding=self.embeddings,
+    persist_directory=self.persistent_directory
 )
     </code></pre>
     
-    <h3>4. Groq LLM (Free with Rate Limits)</h3>
-    <p>For our language model, we're using Groq's implementation of Meta's latest Llama 3.1 model, which is free to use with rate limits:</p>
+    <h3>4. Groq API: Access to Llama 3.1 (Free with Rate Limits)</h3>
+    <p>We use Groq's API to access Meta's latest Llama 3.1 model, which is free to use with rate limits:</p>
     
     <pre><code>
 from langchain_groq import ChatGroq
 
 self.llm = ChatGroq(
-model="llama-3.1-70b-versatile",
-temperature=0,
-max_tokens=None,
-timeout=None,
-max_retries=2,
+    model="llama-3.1-70b-versatile",
+    temperature=0,
+    max_tokens=None,
+    timeout=None,
+    max_retries=2,
 )
     </code></pre>
     
-    <h3>5. Tavily Search (Free Tier Available)</h3>
-    <p>To augment our chatbot with web search capabilities, we're integrating Tavily Search, which offers a free tier:</p>
+    <h3>5. Tavily Search API (Free Tier Available)</h3>
+    <p>To augment our chatbot with real-time web search capabilities:</p>
     
     <pre><code>
 from langchain_community.tools.tavily_search import TavilySearchResults
@@ -149,85 +141,88 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 self.web_search_tool = TavilySearchResults()
     </code></pre>
     
-    <h2>Implementing RAG in Our Chatbot</h2>
+    <h2>Implementing Our Enhanced RAG Chatbot</h2>
     
-    <p>The heart of our RAG implementation is the `RAGChat` class. Let's break down how it implements the RAG approach:</p>
+    <p>Let's dive into the key components of our `RAGChat` class:</p>
     
-    <h3>1. Document Retrieval</h3>
+    <h3>1. Efficient Document Processing</h3>
     <pre><code>
-def retrieve(state):
-question = state["question"]
-documents = self.retriever.invoke(question)
-steps = state["steps"]
-steps.append("retrieve_documents")
-return {"documents": documents, "question": question, "steps": steps}
+headers_to_split_on = [
+    ("h1", "Header 1"),
+    ("h2", "Header 2"),
+    ("h3", "Header 3"),
+    ("section", "Section"),
+]
+text_splitter = HTMLHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+
+all_splits = []
+for doc in raw_documents:
+    splits = text_splitter.split_text(doc.page_content)
+    all_splits.extend(splits)
     </code></pre>
     
-    <h3>2. Document Grading</h3>
+    <h3>2. Intelligent Document Retrieval and Grading</h3>
     <pre><code>
 def grade_documents(state):
-question = state["question"]
-documents = state["documents"]
-steps = state["steps"]
-steps.append("grade_document_retrieval")
-filtered_docs = []
-search = "No"
-for d in documents:
-    score = self.retrieval_grader.invoke(
-        {"question": question, "document": d.page_content}
-    )
-    grade = score["score"]
-    if grade == "yes":
-        filtered_docs.append(d)
-    else:
-        search = "Yes"
-        continue
-return {
-    "documents": filtered_docs,
-    "question": question,
-    "search": search,
-    "steps": steps,
-}
+    question = state["question"]
+    documents = state["documents"]
+    filtered_docs = []
+    search = "No"
+    for d in documents:
+        score = self.retrieval_grader.invoke(
+            {"question": question, "document": d.page_content}
+        )
+        grade = score["score"]
+        if grade == "yes":
+            filtered_docs.append(d)
+        else:
+            search = "Yes"
+    return {
+        "documents": filtered_docs,
+        "question": question,
+        "search": search,
+        "steps": state["steps"] + ["grade_document_retrieval"],
+    }
     </code></pre>
     
-    <h3>3. Web Search (if needed)</h3>
+    <h3>3. Dynamic Web Search Integration</h3>
     <pre><code>
 def web_search(state):
-question = state["question"]
-documents = state.get("documents", [])
-steps = state["steps"]
-steps.append("web_search")
-web_results = self.web_search_tool.invoke({"query": question})
-documents.extend(
-    [
-        Document(page_content=d["content"], metadata={"url": d["url"]})
-        for d in web_results
-    ]
-)
-return {"documents": documents, "question": question, "steps": steps}
+    question = state["question"]
+    documents = state.get("documents", [])
+    web_results = self.web_search_tool.invoke({"query": question})
+    documents.extend(
+        [
+            Document(page_content=d["content"], metadata={"url": d["url"]})
+            for d in web_results
+        ]
+    )
+    return {
+        "documents": documents,
+        "question": question,
+        "steps": state["steps"] + ["web_search"],
+    }
     </code></pre>
     
-    <h3>4. Answer Generation</h3>
+    <h3>4. Context-Aware Answer Generation</h3>
     <pre><code>
 def generate(state):
-question = state["question"]
-documents = state["documents"]
-generation = self.rag_chain.invoke(
-    {"documents": documents, "question": question}
-)
-steps = state["steps"]
-steps.append("generate_answer")
-return {
-    "documents": documents,
-    "question": question,
-    "generation": generation,
-    "steps": steps,
-}
+    question = state["question"]
+    documents = state["documents"]
+    generation = self.rag_chain.invoke(
+        {"documents": documents, "question": question}
+    )
+    return {
+        "documents": documents,
+        "question": question,
+        "generation": generation,
+        "steps": state["steps"] + ["generate_answer"],
+    }
     </code></pre>
     
-    <h2>The Power of LangChain's StateGraph</h2>
+    <h2>Orchestrating the Workflow with LangChain's StateGraph</h2>
     
-    <p>To orchestrate this RAG workflow, we use LangChain's StateGraph, which allows for dynamic decision-making based on the relevance of retrieved documents:</p>
+    <p>We use LangChain's StateGraph to create a dynamic, decision-making workflow:</p>
     
     <pre><code>
 workflow = StateGraph(GraphState)
@@ -239,30 +234,30 @@ workflow.add_node("web_search", web_search)
 workflow.set_entry_point("retrieve")
 workflow.add_edge("retrieve", "grade_documents")
 workflow.add_conditional_edges(
-"grade_documents",
-decide_to_generate,
-{
-    "search": "web_search",
-    "generate": "generate",
-},
+    "grade_documents",
+    decide_to_generate,
+    {
+        "search": "web_search",
+        "generate": "generate",
+    },
 )
 workflow.add_edge("web_search", "generate")
 workflow.add_edge("generate", END)
     </code></pre>
     
-    <h2>Conclusion</h2>
+    <h2>Conclusion: The Future of Free, Serverless AI Chatbots</h2>
         
-        <p>By leveraging cutting-edge, free, and open-source tools like LangChain, Hugging Face embeddings, Chroma vector database, and Groq's implementation of Meta's Llama 3.1 model, we've created a sophisticated chatbot that can be easily integrated into any website. This implementation offers a powerful combination of local knowledge base querying and web search capabilities, ensuring that users receive accurate and up-to-date information.</p>
+        <p>By harnessing the power of cutting-edge, free, and serverless tools like Hugging Face and Groq APIs, combined with open-source technologies such as LangChain and Chroma, we've created a sophisticated chatbot that can be easily integrated into any website or application without any hosting costs.</p>
         
-        <p>The use of the RAG approach, combined with Meta's latest Llama 3.1 model, puts this chatbot at the forefront of AI technology in 2024. Best of all, this entire setup can be implemented without any cost, making it accessible to developers and businesses of all sizes.</p>
+        <p>This implementation offers a powerful combination of local knowledge base querying, intelligent document processing, and dynamic web search capabilities, ensuring that users receive accurate and up-to-date information. The use of the enhanced RAG approach, coupled with Meta's latest Llama 3.1 model via Groq, puts this chatbot at the forefront of AI technology in 2024.</p>
         
-        <p>As we move further into 2024, such advanced, open-source chatbot integrations will become increasingly crucial for businesses looking to provide exceptional user experiences and stay ahead in the digital landscape, all while maintaining control over their AI implementations and data.</p>
+        <p>As we progress through 2024, such advanced, open-source, and serverless chatbot integrations will become increasingly crucial for developers and businesses looking to provide exceptional user experiences while maintaining full control over their AI implementations and data.</p>
 
-        <p>For those interested in exploring this implementation further, I'm excited to share that all the code used in this project is available on my GitHub repository: <a href="https://github.com/AkhilSinghRana/akhilsinghrana.com/blob/homepage/akhilsinghrana/RAG_Chat.py" target="_blank">https://github.com/AkhilSinghRana/chatbot-integration-Blog</a>. Feel free to clone, fork, or star the repository if you find it useful!</p>
+        <p>For a deeper dive into this implementation, check out the complete code on my GitHub repository: <a href="https://github.com/AkhilSinghRana/akhilsinghrana.com/blob/homepage/akhilsinghrana/RAG_Chat.py" target="_blank">https://github.com/AkhilSinghRana/chatbot-integration-Blog</a>. Feel free to clone, fork, or star the repository if you find it useful!</p>
 
-        <p>If you have any questions about the implementation, want to discuss potential improvements, or just want to share your thoughts on this approach, I'd love to hear from you. You can reach out to me through the contact form on this website or connect with me on <a href="https://linkedin.com/in/akhilsinghrana" target="_blank">LinkedIn</a>. Your feedback and questions are invaluable in pushing this technology forward and making it even more accessible to the community.</p>
+        <p>I'm always eager to discuss potential improvements or answer any questions about this approach. Reach out through the contact form on this website or connect with me on <a href="https://linkedin.com/in/akhilsinghrana" target="_blank">LinkedIn</a>. Your insights and questions are invaluable in advancing this technology and making it even more accessible to the community.</p>
 
-        <p>Thank you for reading, and happy coding!</p>
+        <p>Thank you for reading, and happy coding in the world of free, serverless AI!</p>
 </article>
 
 </body>

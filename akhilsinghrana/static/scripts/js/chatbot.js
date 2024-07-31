@@ -52,9 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const welcomeMessages = [
             "Welcome! I am your Assistant.",
             "Feel free to ask me anything about this website or anything from web.",
-            "Some sample quetions.",
-            "Who is Akhil?",
-            "What is Akhil's Education",
+            "Some sample quetions.\n",
+            "Tell me more about Akhil.\n",
+            "What is this website about.",
+            "What is Akhil's Education\n",
             "What publications has Akhil written?",
             
         ];

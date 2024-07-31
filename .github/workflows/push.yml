@@ -79,9 +79,8 @@ jobs:
       run: |
         gcloud run deploy ${{ vars.SERVICE_NAME }} \
         --image ${{ vars.ARTIFACT_LOCATION }}:${{ github.sha }} \
-        --memory 1G \
         --platform managed \
         --region ${{ vars.SERVICE_LOCATION }} \
         --allow-unauthenticated \
-        --set-env-vars SMTP_SERVER=${{ vars.SMTP_SERVER }},SMTP_PORT=${{ vars.SMTP_PORT }},SMTP_USERNAME=${{ vars.SMTP_USERNAME }},RECIPIENT_EMAIL=${{ vars.SMTP_RECIPIENT_EMAIL }},SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }},TOGETHER_API_KEY=${{ secrets.TOGETHER_API_KEY }},GROQ_API_KEY=${{ secrets.GROQ_API_KEY}},TAVILY_API_KEY=${{secrets.TAVILY_API_KEY}} \
+        --set-env-vars SMTP_SERVER=${{ vars.SMTP_SERVER }},SMTP_PORT=${{ vars.SMTP_PORT }},SMTP_USERNAME=${{ vars.SMTP_USERNAME }},RECIPIENT_EMAIL=${{ vars.SMTP_RECIPIENT_EMAIL }},SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }},TOGETHER_API_KEY=${{ secrets.TOGETHER_API_KEY }},GROQ_API_KEY=${{ secrets.GROQ_API_KEY}},TAVILY_API_KEY=${{secrets.TAVILY_API_KEY}},HF_API_KEY=${{secrets.HF_API_KEY}} \
         
