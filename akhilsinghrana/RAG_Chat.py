@@ -3,14 +3,13 @@ from dotenv import load_dotenv
 
 # load raw files
 from functools import lru_cache
-from langchain_community.document_loaders import DirectoryLoader, html_bs
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import html_bs
 from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
-    
+
 from langchain.text_splitter import HTMLHeaderTextSplitter
-from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+
+# from langchain_core.pydantic_v1 import BaseModel, Field
+# from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain.prompts import PromptTemplate
@@ -37,17 +36,15 @@ class RAGChat:
         self.web_search_tool = TavilySearchResults()
         self.prepare_execution_graph()
 
-        
-    
     @lru_cache(maxsize=1)
     def get_embeddings(self):
         encode_kwargs = {"normalize_embeddings": True}
         return HuggingFaceInferenceAPIEmbeddings(
             api_key=os.environ.get("HF_API_KEY"),
             model_name="BAAI/bge-large-en-v1.5",
-            encode_kwargs=encode_kwargs
+            encode_kwargs=encode_kwargs,
         )
-    
+
     @lru_cache(maxsize=1)
     def get_llm(self):
         return ChatGroq(
@@ -84,6 +81,7 @@ class RAGChat:
             input_variables=["question", "document"],
         )
         return prompt | self.llm | JsonOutputParser()
+
     def get_retriever(self, recreateVectorDB, **kwargs):
         if recreateVectorDB:
             vectorstore = self.create_vector_store(**kwargs)
@@ -96,12 +94,17 @@ class RAGChat:
             search_type="similarity_score_threshold",
             search_kwargs={"k": 3, "score_threshold": 0.1},
         )
+
     def create_vector_store(self, **kwargs):
         folder_path = kwargs.get("folder")
         batch_size = kwargs.get("batch_size", 100)
 
         # Load HTML files
-        html_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith('.html')]
+        html_files = [
+            os.path.join(folder_path, file)
+            for file in os.listdir(folder_path)
+            if file.endswith(".html")
+        ]
 
         # Read contents of all files using HTML data loader
         raw_documents = []
@@ -119,8 +122,10 @@ class RAGChat:
 
         # Process documents in batches
         all_splits = []
-        for i in tqdm(range(0, len(raw_documents), batch_size), desc="Processing documents"):
-            batch = raw_documents[i:i+batch_size]
+        for i in tqdm(
+            range(0, len(raw_documents), batch_size), desc="Processing documents"
+        ):
+            batch = raw_documents[i : i + batch_size]
             for doc in batch:
                 splits = text_splitter.split_text(doc.page_content)
                 all_splits.extend(splits)
@@ -129,11 +134,11 @@ class RAGChat:
         vectorstore = Chroma.from_documents(
             documents=all_splits,
             embedding=self.embeddings,
-            persist_directory=self.persistent_directory
+            persist_directory=self.persistent_directory,
         )
 
         return vectorstore
-        
+
     def prepare_execution_graph(self):
         class GraphState(TypedDict):
             """

@@ -146,7 +146,7 @@ async def chat_endpoint(chat_message: ChatMessage):
     try:
         # response = together_api(chat_message.message)
         question = {"input": chat_message.message}
-        
+
         response = custom_chatBot.get_answer(question)
         print(response)
         # Perform garbage collection
@@ -159,11 +159,11 @@ async def chat_endpoint(chat_message: ChatMessage):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-
 async def periodic_garbage_collection():
     while True:
         await asyncio.sleep(300)  # Run every 5 minutes
         gc.collect()
+
 
 @app.on_event("startup")
 async def start_periodic_tasks():
