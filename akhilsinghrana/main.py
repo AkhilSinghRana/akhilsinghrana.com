@@ -17,6 +17,9 @@ from together import Together
 import gc
 from akhilsinghrana.RAG_Chat import RAGChat
 
+# Create my Chatbot
+custom_chatBot = RAGChat(recreateVectorDB=False, folder="./akhilsinghrana/pages")
+
 # Load environment variables
 load_dotenv()
 
@@ -138,7 +141,6 @@ class ChatMessage(BaseModel):
 #     return full_response
 
 
-custom_chatBot = RAGChat(recreateVectorDB=False, folder="./akhilsinghrana/pages")
 
 
 @app.post("/api/chat")
@@ -150,7 +152,7 @@ async def chat_endpoint(chat_message: ChatMessage):
         response = custom_chatBot.get_answer(question)
         print(response)
         # Perform garbage collection
-        gc.collect()
+        #gc.collect()
         return {"response": response["response"]}
 
     except Exception as e:

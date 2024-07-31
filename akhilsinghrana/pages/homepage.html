@@ -27,9 +27,16 @@
                     <a class="nav-link" href="#blog"><i class="bi bi-book-half"></i> Blogs</a>
                     <a class="nav-link" href="#about"><i class="bi bi-person-fill"></i> About</a>
                     <a class="nav-link" href="#publications"><i class="bi bi-brush"></i> Publications</a>
-                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#contact1">
-                        Contact Me
-                    </button>
+                    
+                    <div>
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#contact1">
+                            
+                            Contact Me
+                        </button>
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#supportme">
+                            Support My Work
+                        </button>
+                    </div>
                 </nav>
                 <div class="theme-switch-wrapper mt-3 text-center">
                     <label class="theme-switch" for="checkbox">
@@ -83,6 +90,36 @@
                         </div>
                     </div>
                 
+                </div>
+                <!-- Modal To Support My work-->
+                <div id="supportme" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Support my work</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="support-option">
+                                    <h3>Buy Me a Coffee</h3>
+                                    <p>Developers need cofee, Buy me a coffee to show your support:</p>
+                                    <a href="https://www.buymeacoffee.com/akhilsinghrana" target="_blank"><button class="btn btn-custom"> Buy Me a Coffee</button></a>
+                                </div>
+                                <br>
+                                <div class="support-option">
+                                    <h3>PayPal</h3>
+                                    <p>Support me via PayPal:</p>
+                                    <a href="https://paypal.me/akhilsinghrana" target="_blank"><button class="btn btn-custom"> Donate with PayPal</button> </a>
+                                </div>
+                                <!-- Add more support options here -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <section id="home" class="home-section">
                     <div class="row">
