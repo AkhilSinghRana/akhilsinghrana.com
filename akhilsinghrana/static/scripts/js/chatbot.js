@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             "Some sample quetions.\n",
             "Tell me more about Akhil.\n",
             "What is this website about.",
-            "What is Akhil's Education\n",
-            "What publications has Akhil written?",
+            "What education does Akhil have.\n",
+            "What publications has Akhil written",
             
         ];
         addMessage('Bot', welcomeMessages.join(' '));
