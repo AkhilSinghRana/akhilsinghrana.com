@@ -1,4 +1,6 @@
 import os
+from fastapi import BackgroundTasks
+import asyncio
 from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import BaseModel
@@ -12,6 +14,7 @@ import logging
 from collections import defaultdict
 import time
 from together import Together
+import gc
 from akhilsinghrana.RAG_Chat import RAGChat
 
 # Load environment variables
@@ -146,7 +149,22 @@ async def chat_endpoint(chat_message: ChatMessage):
         
         response = custom_chatBot.get_answer(question)
         print(response)
+        # Perform garbage collection
+        gc.collect()
         return {"response": response["response"]}
 
     except Exception as e:
+        # Perform garbage collection even if an error occurs
+        gc.collect()
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+async def periodic_garbage_collection():
+    while True:
+        await asyncio.sleep(300)  # Run every 5 minutes
+        gc.collect()
+
+@app.on_event("startup")
+async def start_periodic_tasks():
+    asyncio.create_task(periodic_garbage_collection())
