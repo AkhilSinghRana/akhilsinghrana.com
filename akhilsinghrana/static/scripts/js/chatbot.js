@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const message = userInput.value.trim();
         if (message) {
-            addMessage('You', message);
+            addMessage('You', message, 'user-message');
             userInput.value = '';
             try {
                 const response = await sendMessageToAPI(message);
-                addMessage('Bot', response);
+                addMessage('Bot', response, 'bot-message');
             } catch (error) {
                 console.error('Error:', error);
-                addMessage('Bot', 'Sorry, there was an error processing your request.');
+                addMessage('Bot', 'Sorry, there was an error processing your request.', 'bot-message');
             }
         }
     });
@@ -40,13 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return data.response;
     }
 
-    function addMessage(sender, message) {
+    function addMessage(sender, message, className) {
         const messageElement = document.createElement('div');
-        messageElement.className = 'mb-2';
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        messageElement.className = `message ${className}`;
+        messageElement.textContent = message;
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+
 
     function displayWelcomeMessage() {
         const welcomeMessages = [
@@ -59,6 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
             "What publications has Akhil written",
             
         ];
-        addMessage('Bot', welcomeMessages.join(' '));
+        addMessage('Bot', welcomeMessages.join('\n'), 'bot-message');
     }
 });

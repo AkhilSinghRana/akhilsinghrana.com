@@ -29,6 +29,8 @@ langchain-chroma = "^0.1.2"
 #sentence-transformers = "^3.0.1"
 beautifulsoup4 = "^4.12.3"
 unstructured = "^0.15.0"
+huggingface-hub = "^0.24.5"
+langchain-huggingface = "^0.0.3"
 [tool.poetry.group.dev]
 optional = true
 
