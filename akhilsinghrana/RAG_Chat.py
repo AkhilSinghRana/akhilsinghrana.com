@@ -31,10 +31,10 @@ class RAGChat:
         self.persistent_directory = "./akhilsinghrana/db/chroma_db"
         self.embeddings = self.get_embeddings()
         self.retriever = self.get_retriever(recreateVectorDB, **kwargs)
-        self.llm = self.get_llm()
-        
+        self.llm = self.get_llm() # defaults to groq
+
         self.create_execution_pipeline()
-        
+
     def create_execution_pipeline(self):
         self.rag_chain = self.create_rag_chain()
         self.retrieval_grader = self.create_retrieval_grader()
@@ -60,6 +60,7 @@ class RAGChat:
             max_retries=2,
         )
 
+    @lru_cache(maxsize=1)
     def get_hf_llm(self):
         repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
 
@@ -71,7 +72,7 @@ class RAGChat:
         )
 
         return llm
-    
+
     def create_rag_chain(self):
         prompt = PromptTemplate(
             template="""You are an assistant for question-answering tasks. 
