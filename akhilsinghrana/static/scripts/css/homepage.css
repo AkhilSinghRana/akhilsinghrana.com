@@ -9,6 +9,9 @@
     --h1-color: rgb(121, 219, 216);
     --h2-color: rgb(66, 176, 245);
     --highlight-color: #05213f;
+    --user-msg-bg: #05792a;
+    --bot-msg-bg: rgb(20, 47, 168);
+    --chat-bg: #0f0e0d;
 }
 
 body {
@@ -35,7 +38,7 @@ a:hover {
     padding: 20px;
     box-shadow: 2px 0 10px rgba(112, 128, 182, 0.8);
     z-index: 1000;
-    width: 17%;
+    width: 19%;
 }
 
 .main-content {
@@ -716,7 +719,7 @@ input:checked + .slider .moon-icon {
 #supportme .support-option {
     margin: 10px 0;
     padding: 10px;
-    background-color: var(--text-color);
+    background-color: var(--sidebar-bg-color);
     border-radius: 5px;
 }
 
@@ -733,22 +736,81 @@ input:checked + .slider .moon-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px var(--sidebar-bg-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    background-color: #25D366;
+    color: var(--text-color);
+    border: none;
 }
 #chatModal .modal-dialog {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 35%;
+    width: 40%;
     height: auto;
     margin: 10px;
+    max-width: 500px;
 }
 #chatModal .modal-content {
     border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+#chatModal .modal-header {
+    background-color: #075E54;
+    color: var(--h1-color);
+    border-bottom: none;
+}
+#chatModal .modal-body {
+    padding: 0;
+    background-color: var(--chat-bg);
 }
 #chat-messages {
     height: 400px;
     overflow-y: auto;
+    padding: 15px;
+}
+.message {
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    position: relative;
+    clear: both;
+}
+.user-message {
+    background-color: var(--user-msg-bg);
+    float: right;
+    border-bottom-right-radius: 5px;
+    color: var(--text-color);
+}
+.bot-message {
+    background-color: var(--highlight-color);
+    float: left;
+    border-bottom-left-radius: 5px;
+    color: var(--text-color);
+}
+#chat-form {
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+#user-input {
+    border-radius: 20px;
+    border: none;
+    padding: 10px 15px;
+    
+}
+#chat-form button {
+    background-color: var(--btn-bg-color);
+    border: none;
+    color: var(--text-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 @media (max-width: 768px) {
     .sidebar {
@@ -847,6 +909,9 @@ body.dark {
     --h1-color: rgb(66, 176, 245);
     --h2-color: rgb(66, 176, 245);
     --highlight-color: #05213f;
+    --user-msg-bg: #05792a;
+    --bot-msg-bg: rgb(20, 47, 168);
+    --chat-bg: #0f0e0d;
 }
 
 /* Light Theme */
@@ -861,4 +926,7 @@ body.light {
     --h1-color: rgb(61, 41, 42);
     --h2-color: rgb(61, 41, 42);
     --highlight-color: #c3e6cf;
+    --user-msg-bg: #05792a;
+    --bot-msg-bg: rgb(20, 47, 168);
+    --chat-bg: #f7f3f0;
 }

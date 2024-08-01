@@ -12,6 +12,7 @@ from langchain.text_splitter import HTMLHeaderTextSplitter
 # from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEndpoint
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from langchain.schema import Document
@@ -31,6 +32,10 @@ class RAGChat:
         self.embeddings = self.get_embeddings()
         self.retriever = self.get_retriever(recreateVectorDB, **kwargs)
         self.llm = self.get_llm()
+        
+        self.create_execution_pipeline()
+        
+    def create_execution_pipeline(self):
         self.rag_chain = self.create_rag_chain()
         self.retrieval_grader = self.create_retrieval_grader()
         self.web_search_tool = TavilySearchResults()
@@ -48,13 +53,25 @@ class RAGChat:
     @lru_cache(maxsize=1)
     def get_llm(self):
         return ChatGroq(
-            model="llama-3.1-70b-versatile",
+            model="llama-3.1-8b-instant",
             temperature=0,
             max_tokens=None,
             timeout=None,
             max_retries=2,
         )
 
+    def get_hf_llm(self):
+        repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
+
+        llm = HuggingFaceEndpoint(
+            repo_id=repo_id,
+            max_length=128,
+            temperature=0.5,
+            huggingfacehub_api_token=os.environ.get("HF_API_KEY"),
+        )
+
+        return llm
+    
     def create_rag_chain(self):
         prompt = PromptTemplate(
             template="""You are an assistant for question-answering tasks. 

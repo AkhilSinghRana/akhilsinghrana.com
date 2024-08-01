@@ -158,7 +158,22 @@ async def chat_endpoint(chat_message: ChatMessage):
     except Exception as e:
         # Perform garbage collection even if an error occurs
         gc.collect()
-        raise HTTPException(status_code=500, detail=str(e))
+        print("Something went wrong with Groq, falling back to use huggingface")
+        
+        try:
+            custom_chatBot.llm = custom_chatBot.get_hf_llm()
+            print(custom_chatBot.llm)
+            custom_chatBot.create_execution_pipeline()
+            # response = together_api(chat_message.message)
+            question = {"input": chat_message.message}
+            response = custom_chatBot.get_answer(question)
+            print(response)
+            # Perform garbage collection
+            
+            return {"response": response["response"]}
+        except Exception as e:
+            gc.collect()
+            raise HTTPException(status_code=500, detail=str(e))
 
 
 async def periodic_garbage_collection():
