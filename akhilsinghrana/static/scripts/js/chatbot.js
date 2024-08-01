@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatModal = document.getElementById('chatModal');
 
     chatModal.addEventListener('shown.bs.modal', function() {
-        chatMessages.innerHTML = ''; // Clear previous messages
+        chatMessages.innerHTML = '';
         displayWelcomeMessage();
     });
 
@@ -15,11 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (message) {
             addMessage('You', message, 'user-message');
             userInput.value = '';
+            
+            // Add thinking indicator
+            const thinkingId = addThinkingIndicator();
+            
             try {
                 const response = await sendMessageToAPI(message);
+                // Remove thinking indicator
+                removeThinkingIndicator(thinkingId);
                 addMessage('Bot', response, 'bot-message');
             } catch (error) {
                 console.error('Error:', error);
+                // Remove thinking indicator
+                removeThinkingIndicator(thinkingId);
                 addMessage('Bot', 'Sorry, there was an error processing your request.', 'bot-message');
             }
         }
@@ -48,17 +56,31 @@ document.addEventListener('DOMContentLoaded', function() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    function addThinkingIndicator() {
+        const thinkingElement = document.createElement('div');
+        thinkingElement.className = 'message bot-message thinking';
+        thinkingElement.innerHTML = '<div class="thinking-dots"><span>.</span><span>.</span><span>.</span></div>';
+        chatMessages.appendChild(thinkingElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return thinkingElement.id = 'thinking-' + Date.now(); // Unique ID for the thinking indicator
+    }
+
+    function removeThinkingIndicator(id) {
+        const thinkingElement = document.getElementById(id);
+        if (thinkingElement) {
+            thinkingElement.remove();
+        }
+    }
 
     function displayWelcomeMessage() {
         const welcomeMessages = [
             "Welcome! I am your Assistant.",
             "Feel free to ask me anything about this website or anything from web.",
-            "Some sample quetions.\n",
-            "Tell me more about Akhil.\n",
-            "What is this website about.",
-            "What education does Akhil have.\n",
-            "What publications has Akhil written",
-            
+            "Some sample questions:",
+            "• Tell me more about Akhil.",
+            "• What is this website about?",
+            "• What education does Akhil have?",
+            "• What publications has Akhil written?"
         ];
         addMessage('Bot', welcomeMessages.join('\n'), 'bot-message');
     }

@@ -141,8 +141,6 @@ class ChatMessage(BaseModel):
 #     return full_response
 
 
-
-
 @app.post("/api/chat")
 async def chat_endpoint(chat_message: ChatMessage):
     try:
@@ -152,14 +150,14 @@ async def chat_endpoint(chat_message: ChatMessage):
         response = custom_chatBot.get_answer(question)
         print(response)
         # Perform garbage collection
-        #gc.collect()
+        # gc.collect()
         return {"response": response["response"]}
 
     except Exception as e:
         # Perform garbage collection even if an error occurs
         gc.collect()
         print("Something went wrong with Groq, falling back to use huggingface")
-        
+
         try:
             custom_chatBot.llm = custom_chatBot.get_hf_llm()
             print(custom_chatBot.llm)
@@ -169,7 +167,7 @@ async def chat_endpoint(chat_message: ChatMessage):
             response = custom_chatBot.get_answer(question)
             print(response)
             # Perform garbage collection
-            
+
             return {"response": response["response"]}
         except Exception as e:
             gc.collect()
