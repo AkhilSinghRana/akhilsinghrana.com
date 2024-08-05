@@ -22,7 +22,7 @@ from typing_extensions import TypedDict, List
 from tqdm import tqdm
 from langgraph.graph import END, StateGraph
 import uuid
-
+from functools import lru_cache
 load_dotenv()  # This is for testing the setup locally make sure to includer VAraibles in your github repo
 
 
@@ -41,7 +41,7 @@ class RAGChat:
         self.web_search_tool = TavilySearchResults()
         self.prepare_execution_graph()
 
-    @lru_cache(maxsize=1)
+    @lru_cache(maxsize=10)
     def get_embeddings(self):
         encode_kwargs = {"normalize_embeddings": True}
         return HuggingFaceInferenceAPIEmbeddings(
@@ -50,7 +50,7 @@ class RAGChat:
             encode_kwargs=encode_kwargs,
         )
 
-    @lru_cache(maxsize=1)
+    @lru_cache(maxsize=10)
     def get_llm(self):
         return ChatGroq(
             model="llama-3.1-8b-instant",
@@ -60,7 +60,7 @@ class RAGChat:
             max_retries=2,
         )
 
-    @lru_cache(maxsize=1)
+    @lru_cache(maxsize=10)
     def get_hf_llm(self):
         repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
 
