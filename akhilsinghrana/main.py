@@ -15,6 +15,7 @@ from collections import defaultdict
 import time
 from together import Together
 import gc
+from functools import cache, lru_cache
 from akhilsinghrana.RAG_Chat import RAGChat
 
 # Create my Chatbot
