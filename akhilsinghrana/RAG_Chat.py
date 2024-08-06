@@ -23,6 +23,7 @@ from tqdm import tqdm
 from langgraph.graph import END, StateGraph
 import uuid
 from functools import lru_cache
+
 load_dotenv()  # This is for testing the setup locally make sure to includer VAraibles in your github repo
 
 
@@ -31,7 +32,7 @@ class RAGChat:
         self.persistent_directory = "./akhilsinghrana/db/chroma_db"
         self.embeddings = self.get_embeddings()
         self.retriever = self.get_retriever(recreateVectorDB, **kwargs)
-        self.llm = self.get_llm() # defaults to groq
+        self.llm = self.get_llm()  # defaults to groq
 
         self.create_execution_pipeline()
 

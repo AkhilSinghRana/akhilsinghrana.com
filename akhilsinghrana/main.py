@@ -119,12 +119,12 @@ class ChatMessage(BaseModel):
     message: str
 
 
-
-
-@lru_cache(maxsize=40)
+@lru_cache(maxsize=20)
 def cached_get_answer(message: str):
     question = {"input": message}
     return custom_chatBot.get_answer(question)
+
+
 @app.post("/api/chat")
 async def chat_endpoint(chat_message: ChatMessage):
     try:
