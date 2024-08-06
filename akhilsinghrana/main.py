@@ -13,6 +13,8 @@ from dotenv import load_dotenv
 import logging
 from collections import defaultdict
 import time
+import json
+from collections import OrderedDict
 from together import Together
 import gc
 from functools import cache, lru_cache
@@ -119,19 +121,64 @@ class ChatMessage(BaseModel):
     message: str
 
 
+MAX_CACHE_SIZE = 30
 @lru_cache(maxsize=20)
-def cached_get_answer(message: str):
+def cached_get_answer(message: str, reset_cache: bool = False, cache_file: str = "bot_cache.json") -> str:
     question = {"input": message}
-    return custom_chatBot.get_answer(question)
+    cache_file_path = os.path.join("akhilsinghrana", "static", cache_file)
 
+    if reset_cache:
+        cached_data = OrderedDict()
+    else:
+        try:
+            with open(cache_file_path, "r") as file:
+                cached_data = json.load(file, object_pairs_hook=OrderedDict)
+            print("Data fetched from local cache")
+        except FileNotFoundError:
+            print(f"Cache file not found. Creating a new one at {cache_file_path}")
+            cached_data = OrderedDict()
+        except json.JSONDecodeError:
+            print("Invalid JSON in cache file. Starting with an empty cache.")
+            cached_data = OrderedDict()
+        except Exception as e:
+            print(f"Error loading cached data: {e}")
+            cached_data = OrderedDict()
+
+    # Convert the question dict to a string for use as a key
+    question_key = json.dumps(question)
+
+    if question_key in cached_data:
+        # Move the accessed item to the end to mark it as most recently used
+        cached_data.move_to_end(question_key)
+        return cached_data[question_key]
+
+    logging.info("Sending API request")
+    bot_reply = custom_chatBot.get_answer(question)
+
+    # Update the cache
+    if len(cached_data) >= MAX_CACHE_SIZE:
+        # Remove the least recently used item (first item in OrderedDict)
+        cached_data.popitem(last=False)
+    
+    cached_data[question_key] = bot_reply
+    # Move the new item to the end to mark it as most recently used
+    cached_data.move_to_end(question_key)
+
+    # Save the updated cache
+    try:
+        with open(cache_file_path, "w") as file:
+            json.dump(cached_data, file)
+    except Exception as e:
+        print(f"Error saving cache: {e}")
+
+    return bot_reply
 
 @app.post("/api/chat")
 async def chat_endpoint(chat_message: ChatMessage):
     try:
         response = cached_get_answer(chat_message.message)
         print(response)
-        # Perform garbage collection
-        # gc.collect()
+        
         return {"response": response["response"]}
 
     except Exception as e:

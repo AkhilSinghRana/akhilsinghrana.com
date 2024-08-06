@@ -77,8 +77,9 @@ document.addEventListener('DOMContentLoaded', function() {
             "Welcome! I am your Assistant.",
             "Feel free to ask me anything about this website or anything from web.",
             "Some sample questions:",
+            "• Who is Akhil.",
+            "• What blogs has Akhil Written.",
             "• Tell me more about Akhil.",
-            "• What is this website about?",
             "• What education does Akhil have?",
             "• What publications has Akhil written?"
         ];
