@@ -119,36 +119,16 @@ class ChatMessage(BaseModel):
     message: str
 
 
-# client = Together(api_key=os.getenv("TOGETHER_API_KEY"))
-# def together_api(user_query):
-#     response = client.chat.completions.create(
-#         model="meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
-#         messages=[{"role": "user", "content": user_query}],
-#         max_tokens=1024,
-#         temperature=0.7,
-#         top_p=0.7,
-#         top_k=50,
-#         repetition_penalty=1,
-#         stop=["<|eot_id|>"],
-#         stream=True,
-#     )
-
-#     # Since the response is streamed, we need to collect all chunks
-#     full_response = ""
-#     for chunk in response:
-#         if chunk.choices[0].delta.content is not None:
-#             full_response += chunk.choices[0].delta.content
-
-#     return full_response
 
 
+@lru_cache(maxsize=40)
+def cached_get_answer(message: str):
+    question = {"input": message}
+    return custom_chatBot.get_answer(question)
 @app.post("/api/chat")
 async def chat_endpoint(chat_message: ChatMessage):
     try:
-        # response = together_api(chat_message.message)
-        question = {"input": chat_message.message}
-
-        response = custom_chatBot.get_answer(question)
+        response = cached_get_answer(chat_message.message)
         print(response)
         # Perform garbage collection
         # gc.collect()
@@ -164,8 +144,7 @@ async def chat_endpoint(chat_message: ChatMessage):
             print(custom_chatBot.llm)
             custom_chatBot.create_execution_pipeline()
             # response = together_api(chat_message.message)
-            question = {"input": chat_message.message}
-            response = custom_chatBot.get_answer(question)
+            response = cached_get_answer(chat_message.message)
             print(response)
             # Perform garbage collection
 
