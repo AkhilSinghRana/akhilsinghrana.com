@@ -5,6 +5,8 @@ from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
+from typing import Optional
+from collections import deque
 from fastapi.templating import Jinja2Templates
 import smtplib
 from email.mime.text import MIMEText
@@ -49,9 +51,43 @@ async def read_blog(request: Request, blog_name: str):
     return templates.TemplateResponse(f"{blog_name}.html", {"request": request})
 
 
+class QueueItem(BaseModel):
+    name: str
+    email: str
+    message: str
+
+# Initialize a queue as a deque (double-ended queue)
+queue = deque()
+
+# Define a task function for handling queue items
+def process_queue_item(item: QueueItem):
+    try:
+        send_email(item.name, item.email, item.message)
+        logger.info("Email sent successfully")
+    except Exception as e:
+        logger.error(f"Error sending email: {str(e)}")
+
+# Define a function for running queue tasks in the background
+async def run_queue_tasks():
+    while True:
+        # Check if there are items in the queue
+        if queue:
+            item = queue.popleft()
+            process_queue_item(item)
+        else:
+            # If the queue is empty, wait for a short period before checking again
+            await asyncio.sleep(0.5)
+
+# Start the queue task in the background when the app starts
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(run_queue_tasks())
+
+# Modify the contact function to add items to the queue
 @app.post("/contact")
 async def contact(
     request: Request,
+    background_tasks: BackgroundTasks,
     name: str = Form(...),
     email: str = Form(...),
     message: str = Form(...),
@@ -61,14 +97,12 @@ async def contact(
     if is_rate_limited(client_ip):
         raise HTTPException(status_code=429, detail="Too many requests")
 
-    try:
-        send_email(name, email, message)
-        # Redirect to the home page after successful form submission
-        return RedirectResponse(url="/", status_code=303)
-    except Exception as e:
-        logger.error(f"Error sending email: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to send email")
+    # Create a queue item and add it to the queue
+    item = QueueItem(name=name, email=email, message=message)
+    queue.append(item)
 
+    # Return immediately without waiting for the email to be sent
+    return RedirectResponse(url="/", status_code=303)
 
 def send_email(name: str, email: str, message: str):
     smtp_server = os.getenv("SMTP_SERVER")
@@ -133,7 +167,6 @@ def cached_get_answer(message: str, reset_cache: bool = False, cache_file: str =
         try:
             with open(cache_file_path, "r") as file:
                 cached_data = json.load(file, object_pairs_hook=OrderedDict)
-            print("Data fetched from local cache")
         except FileNotFoundError:
             print(f"Cache file not found. Creating a new one at {cache_file_path}")
             cached_data = OrderedDict()
@@ -148,6 +181,7 @@ def cached_get_answer(message: str, reset_cache: bool = False, cache_file: str =
     question_key = json.dumps(question)
 
     if question_key in cached_data:
+        print("Data fetched from local cache")
         # Move the accessed item to the end to mark it as most recently used
         cached_data.move_to_end(question_key)
         return cached_data[question_key]
@@ -204,7 +238,7 @@ async def chat_endpoint(chat_message: ChatMessage):
 async def periodic_garbage_collection():
     while True:
         await asyncio.sleep(300)  # Run every 5 minutes
-        gc.collect()
+        gc.collect()c
 
 
 @app.on_event("startup")
