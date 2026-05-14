@@ -74,7 +74,7 @@ jobs:
                     --max-instances 2 \
                     --memory 512Mi \
                     --cpu 1 \
-                    --set-env-vars "SMTP_SERVER=${{ vars.SMTP_SERVER }},SMTP_PORT=${{ vars.SMTP_PORT }},SMTP_USERNAME=${{ vars.SMTP_USERNAME }},RECIPIENT_EMAIL=${{ vars.SMTP_RECIPIENT_EMAIL }},CORS_ORIGINS=${{ vars.CORS_ORIGINS }}" \
+                    --set-env-vars "^|^SMTP_SERVER=${{ vars.SMTP_SERVER }}|SMTP_PORT=${{ vars.SMTP_PORT }}|SMTP_USERNAME=${{ vars.SMTP_USERNAME }}|RECIPIENT_EMAIL=${{ vars.SMTP_RECIPIENT_EMAIL }}|CORS_ORIGINS=${{ vars.CORS_ORIGINS }}" \
                     --set-secrets "SMTP_PASSWORD=smtp-password:latest,GROQ_API_KEY=groq-api-key:latest,TOGETHER_API_KEY=together-api-key:latest,TAVILY_API_KEY=tavily-api-key:latest,HF_API_KEY=hf-api-key:latest"
 
             - name: Get deployed backend URL
