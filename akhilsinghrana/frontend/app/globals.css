@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0f1a;
+  --accent: #22d3ee;
+  --surface: #0d1a24;
+  --text: #e2e8f0;
+  --muted: #7a9ab3;
+  --border: rgba(34, 211, 238, 0.15);
+  --font-sora: var(--font-sora);
+  --font-dm-sans: var(--font-dm-sans);
+}
+
+.light {
+  --bg: #f8fafc;
+  --accent: #0891b2;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-dm-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sora), sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+/* Glass utility */
+.glass {
+  background: rgba(13, 26, 36, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.light .glass {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  background-color: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Section snap */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+}
+
+/* Accent glow */
+.accent-glow {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
