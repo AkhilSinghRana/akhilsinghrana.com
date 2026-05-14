@@ -1,29 +1,50 @@
-name: build and test docker image on pull request
+name: Build and test on pull request
 
 on:
   pull_request:
     branches:
       - main
+
 jobs:
-  build:
+  build-backend:
+    name: Build backend Docker image
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Docker build
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Build and test docker image
-      run:  |
-            docker buildx create --use
-            docker buildx build \
-              --file Dockerfile \
-              --tag  akhilsinghrana/personal-website:latest .
+      - name: Build backend image (no push)
+        run: |
+          docker buildx build \
+            --file Dockerfile \
+            --tag akhilsinghrana/personal-website:pr-test \
+            --load .
+        env:
+          DOCKER_BUILDKIT: 1
 
-    env:
-      DOCKER_CLI_EXPERIMENTAL: enabled
-      DOCKER_BUILDKIT: 1
+  build-frontend:
+    name: Build frontend (static export)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: akhilsinghrana/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: akhilsinghrana/frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: akhilsinghrana/frontend
+        env:
+          NEXT_PUBLIC_API_URL: "http://localhost:8000"

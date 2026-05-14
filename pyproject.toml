@@ -1,44 +1,50 @@
-[tool.poetry]
+[project]
 name = "akhilsinghrana"
 version = "0.1.0"
-description = "This is codebase for akhilsinghrana.com personal website"
-authors = ["Akhil Singh Rana <akhilsinghrana@gmail.com>"]
+description = "Codebase for akhilsinghrana.com personal website"
+authors = [{ name = "Akhil Singh Rana", email = "akhilsinghrana@gmail.com" }]
 readme = "README.md"
-packages = [{include = "akhilsinghrana"}]
-homepage = "https://akhilsinghrana.com"
-repository = "https://github.com/akhilsinghrana/akhilsinghrana.com"
+requires-python = ">=3.12,<3.13"
 
+# Production runtime deps — all installed in Docker
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn>=0.30.1",
+    "jinja2>=3.1.4",
+    "together>=1.2.3",
+    "langchain-community>=0.2.10",
+    "langchain>=0.2.11",
+    "tavily-python>=0.3.5",
+    "langchainhub>=0.1.20",
+    "langchain-groq>=0.1.8",
+    "faiss-cpu>=1.8.0",
+    "beautifulsoup4>=4.12.3",
+    "huggingface-hub>=0.24.5",
+    "langchain-huggingface>=0.0.3",
+    "langgraph>=0.1.16",
+    "python-dotenv>=1.0.0",
+    "python-multipart>=0.0.28",
+    "langchain-tavily>=0.2.18",
+]
 
-[tool.poetry.dependencies]
-python = ">3.12, <3.13"
-fastapi = "^0.111.0"
-uvicorn = "^0.30.1"
-jinja2 = "^3.1.4"
-
-# dev dependencies
-together = "^1.2.3"
-langchain-community = "^0.2.10"
-langchain = "^0.2.11"
-tavily-python = "^0.3.5"
-langgraph = "^0.1.16"
-matplotlib = "^3.9.1"
-scikit-learn = "^1.5.1"
-langchainhub = "^0.1.20"
-langchain-groq = "^0.1.8"
-langchain-chroma = "^0.1.2"
-#sentence-transformers = "^3.0.1"
-beautifulsoup4 = "^4.12.3"
-unstructured = "^0.15.0"
-huggingface-hub = "^0.24.5"
-langchain-huggingface = "^0.0.3"
-[tool.poetry.group.dev]
-optional = true
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.2.2"
-black = "^23.3.0"
-pylint = "^3.2.5"
+[project.urls]
+Homepage = "https://akhilsinghrana.com"
+Repository = "https://github.com/akhilsinghrana/akhilsinghrana.com"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["akhilsinghrana"]
+
+# Dev/experiment deps — skipped in Docker (uv sync --no-dev)
+[dependency-groups]
+dev = [
+    "matplotlib>=3.9.1",
+    "scikit-learn>=1.5.1",
+    "unstructured>=0.15.0",
+    "pytest>=7.2.2",
+    "black>=23.3.0",
+    "pylint>=3.2.5",
+]

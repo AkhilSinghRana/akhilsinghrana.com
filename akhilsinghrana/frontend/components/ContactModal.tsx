@@ -22,6 +22,7 @@ export default function ContactModal({ open, onClose }: Props) {
       formData.append("name", name)
       formData.append("email", email)
       formData.append("message", message)
+      formData.append("website", "") // Honeypot — always empty for real users
       const res = await fetch(`${apiUrl}/contact`, {
         method: "POST",
         body: formData,
@@ -82,6 +83,8 @@ export default function ContactModal({ open, onClose }: Props) {
               </div>
             ) : (
               <form onSubmit={submit} className="space-y-4" style={{ padding: "20px 24px 24px" }}>
+                {/* Honeypot — hidden from real users, bots fill it */}
+                <input type="text" name="website" defaultValue="" autoComplete="off" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" />
                 <div>
                   <label className="text-xs font-medium mb-1 block" style={{ color: "var(--muted)" }}>
                     Name

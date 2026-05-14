@@ -1,0 +1,34 @@
+# Frontend — built separately, not needed in backend image
+# Exception: blog HTML files are served by the backend /api/blog endpoint
+akhilsinghrana/frontend/
+!akhilsinghrana/frontend/public/blogs/
+
+# Old static assets — backend doesn't serve them anymore
+akhilsinghrana/static/
+akhilsinghrana/pages/
+
+# Secrets — never bake into image
+**/.env*
+**/.env.local
+
+# Python artifacts
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.Python
+
+# Test/dev files
+tests/
+.github/
+
+# Git
+.git/
+.gitignore
+
+# Docs
+README.md
+CNAME
+makefile
+
+# bot_cache.json and faiss_db are intentionally included in the image

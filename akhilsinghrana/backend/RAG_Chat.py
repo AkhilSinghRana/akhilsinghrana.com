@@ -1,35 +1,36 @@
 import os
+import logging
 from dotenv import load_dotenv
 
 # load raw files
 from functools import lru_cache
 from langchain_community.document_loaders import html_bs
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
-from langchain.text_splitter import HTMLHeaderTextSplitter
+from langchain_text_splitters import HTMLHeaderTextSplitter
 
 # from langchain_core.pydantic_v1 import BaseModel, Field
 # from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEndpoint
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
-from langchain.schema import Document
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_core.documents import Document
+from langchain_tavily import TavilySearch
 
 from typing_extensions import TypedDict, List
 from tqdm import tqdm
 from langgraph.graph import END, StateGraph
 import uuid
-from functools import lru_cache
 
-load_dotenv()  # This is for testing the setup locally make sure to includer VAraibles in your github repo
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+logger = logging.getLogger(__name__)
 
 
 class RAGChat:
     def __init__(self, recreateVectorDB=False, **kwargs) -> None:
-        self.persistent_directory = "./db/chroma_db"
+        self.persistent_directory = os.path.join(os.path.dirname(__file__), "db", "faiss_db")
         self.embeddings = self.get_embeddings()
         self.retriever = self.get_retriever(recreateVectorDB, **kwargs)
         self.llm = self.get_llm()  # defaults to groq
@@ -39,16 +40,20 @@ class RAGChat:
     def create_execution_pipeline(self):
         self.rag_chain = self.create_rag_chain()
         self.retrieval_grader = self.create_retrieval_grader()
-        self.web_search_tool = TavilySearchResults()
+        self._web_search_tool = None  # lazy-init: requires TAVILY_API_KEY at call time
         self.prepare_execution_graph()
+
+    @property
+    def web_search_tool(self):
+        if self._web_search_tool is None:
+            self._web_search_tool = TavilySearch(max_results=3)
+        return self._web_search_tool
 
     @lru_cache(maxsize=10)
     def get_embeddings(self):
-        encode_kwargs = {"normalize_embeddings": True}
-        return HuggingFaceInferenceAPIEmbeddings(
-            api_key=os.environ.get("HF_API_KEY"),
-            model_name="BAAI/bge-large-en-v1.5",
-            encode_kwargs=encode_kwargs,
+        return HuggingFaceEndpointEmbeddings(
+            model="BAAI/bge-large-en-v1.5",
+            huggingfacehub_api_token=os.environ.get("HF_API_KEY"),
         )
 
     @lru_cache(maxsize=10)
@@ -102,12 +107,13 @@ class RAGChat:
         return prompt | self.llm | JsonOutputParser()
 
     def get_retriever(self, recreateVectorDB, **kwargs):
-        if recreateVectorDB:
+        if recreateVectorDB or not os.path.exists(self.persistent_directory):
             vectorstore = self.create_vector_store(**kwargs)
         else:
-            vectorstore = Chroma(
-                persist_directory=self.persistent_directory,
-                embedding_function=self.embeddings,
+            vectorstore = FAISS.load_local(
+                self.persistent_directory,
+                self.embeddings,
+                allow_dangerous_deserialization=True,
             )
         return vectorstore.as_retriever(
             search_type="similarity_score_threshold",
@@ -118,44 +124,53 @@ class RAGChat:
         folder_path = kwargs.get("folder")
         batch_size = kwargs.get("batch_size", 100)
 
-        # Load HTML files
-        html_files = [
-            os.path.join(folder_path, file)
-            for file in os.listdir(folder_path)
-            if file.endswith(".html")
-        ]
+        all_splits = []
 
-        # Read contents of all files using HTML data loader
+        # ── Load HTML blog files ──────────────────────────────────────────────
+        html_files = [
+            os.path.join(folder_path, f)
+            for f in os.listdir(folder_path)
+            if f.endswith(".html")
+        ]
         raw_documents = []
         for file in tqdm(html_files, desc="Loading HTML files"):
             raw_documents.extend(html_bs.BSHTMLLoader(file).load())
 
-        # Create chunks for Vector DB
-        headers_to_split_on = [
-            ("h1", "Header 1"),
-            ("h2", "Header 2"),
-            ("h3", "Header 3"),
-            ("section", "Section"),
-        ]
+        headers_to_split_on = [("h1", "Header 1"), ("h2", "Header 2"), ("h3", "Header 3")]
         text_splitter = HTMLHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+        for i in tqdm(range(0, len(raw_documents), batch_size), desc="Processing HTML"):
+            for doc in raw_documents[i : i + batch_size]:
+                all_splits.extend(text_splitter.split_text(doc.page_content))
 
-        # Process documents in batches
-        all_splits = []
-        for i in tqdm(
-            range(0, len(raw_documents), batch_size), desc="Processing documents"
-        ):
-            batch = raw_documents[i : i + batch_size]
-            for doc in batch:
-                splits = text_splitter.split_text(doc.page_content)
-                all_splits.extend(splits)
+        # ── Load site-content.json (about, publications, skills, education) ───
+        content_json = os.path.join(os.path.dirname(__file__), "content", "site-content.json")
+        if os.path.exists(content_json):
+            import json
+            with open(content_json, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            # Index the flat text_summary as one document
+            if data.get("text_summary"):
+                all_splits.append(Document(
+                    page_content=data["text_summary"],
+                    metadata={"source": "site-content"},
+                ))
+            # Index each publication individually for precise retrieval
+            for pub in data.get("publications", []):
+                all_splits.append(Document(
+                    page_content=f"Publication: {pub['title']} — published in {pub['venue']}. URL: {pub.get('url', '')}",
+                    metadata={"source": "publications"},
+                ))
+            logger.info(f"Loaded site-content.json ({len(data.get('publications', []))} publications)")
+        else:
+            logger.warning(f"site-content.json not found at {content_json} — skipping structured content indexing")
 
-        # Create and persist the vector store
-        vectorstore = Chroma.from_documents(
+        # ── Build vector store ────────────────────────────────────────────────
+        vectorstore = FAISS.from_documents(
             documents=all_splits,
             embedding=self.embeddings,
-            persist_directory=self.persistent_directory,
         )
-
+        os.makedirs(self.persistent_directory, exist_ok=True)
+        vectorstore.save_local(self.persistent_directory)
         return vectorstore
 
     def prepare_execution_graph(self):
@@ -267,11 +282,15 @@ class RAGChat:
             steps = state["steps"]
             steps.append("web_search")
             web_results = self.web_search_tool.invoke({"query": question})
+            # TavilySearch returns {"results": [{"content": ..., "url": ...}, ...]}
+            if isinstance(web_results, dict):
+                hits = web_results.get("results", [])
+            elif isinstance(web_results, list):
+                hits = web_results
+            else:
+                hits = []
             documents.extend(
-                [
-                    Document(page_content=d["content"], metadata={"url": d["url"]})
-                    for d in web_results
-                ]
+                [Document(page_content=d["content"], metadata={"url": d.get("url", "")}) for d in hits]
             )
             return {"documents": documents, "question": question, "steps": steps}
 

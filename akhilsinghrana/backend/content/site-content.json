@@ -1,0 +1,97 @@
+{
+  "about": {
+    "name": "Akhil Singh Rana",
+    "title": "Senior Machine Learning Scientist",
+    "bio": [
+      "As a Senior Machine Learning Scientist with a passion for pushing the boundaries of AI and computer vision, I've dedicated my career to developing cutting-edge solutions that bridge the gap between theoretical research and real-world applications.",
+      "With over 8 years of experience, I've led projects ranging from creating the largest Earth Observation dataset (RAPIDAI4EO) to engineering multi-modal models that significantly improved agricultural yield forecasting. My expertise spans foundational model development, generative adversarial networks (GANs), deep reinforcement learning, and scalable machine learning systems.",
+      "At Planet Labs, I've spearheaded the development of large-scale foundational models for satellite imagery, securing substantial funding for innovative projects and driving cross-functional collaborations. My previous roles at Airbus Defence and Space and Avira honed my skills in radar processing, image-to-image translation, and privacy-enhancing technologies.",
+      "I'm particularly passionate about computer vision applications in AR/VR, having worked on real-time scene understanding, 3D reconstruction, and object tracking. My research h published in respected journals and presented at international conferences.",
+      "As a technical leader, I thrive on mentoring junior engineers, fostering a culture of innovation, and translating complex AI concepts into impactful products. I'm always excited to tackle new challenges that push the boundaries of what's possible in machine learning and computer vision.",
+      "When I'm not diving into code or brainstorming new AI architectures, you can find me exploring the latest developments in AR/VR technologies or contributing to open-source projects. I'm constantly seeking new opportunities to apply my expertise to solve complex, real-world problems."
+    ],
+    "skills": [
+      "AI/ML",
+      "Computer Vision",
+      "GANs",
+      "Satellite Imagery",
+      "Foundational Models",
+      "PyTorch",
+      "Python",
+      "Remote Sensing",
+      "LLMs",
+      "RAG",
+      "LangChain"
+    ],
+    "contact": {
+      "email": "contact@akhilsinghrana.com",
+      "github": "github.com/akhilsinghrana",
+      "website": "akhilsinghrana.com"
+    }
+  },
+  "education": [
+    {
+      "degree": "Master's in Computer Science (AI & Intelligent Systems)",
+      "school": "TU Kaiserslautern",
+      "years": "2016–2018"
+    },
+    {
+      "degree": "Bachelor's in Computer Science",
+      "school": "ITM University",
+      "years": "2011–2015"
+    }
+  ],
+  "publications": [
+    {
+      "title": "Land Use Land Classification (LULC) Change Detection with High Cadence Multimodal Image Time Series and Self-Supervised Learning",
+      "venue": "AGU, 2021",
+      "url": "https://essopenarchive.org/doi/full/10.1002/essoar.10509476.1"
+    },
+    {
+      "title": "Detection of Maize Crop Phenology Using Planet Fusion",
+      "venue": "Remote Sens. 2024",
+      "url": "https://www.mdpi.com/2072-4292/16/15/2730"
+    },
+    {
+      "title": "Self-Supervised Learning for Crop Classification Using Planet Fusion",
+      "venue": "ISPRS, 2023",
+      "url": "https://isprs-archives.copernicus.org/articles/XLVIII-M-1-2023/309/2023/"
+    },
+    {
+      "title": "Rapidai4Eo: Mono-and Multi-Temporal Deep Learning Models for Updating the Corine Land Cover Product",
+      "venue": "IEEE, 2022",
+      "url": "https://ieeexplore.ieee.org/document/9883198"
+    },
+    {
+      "title": "Geography-Aware Masked Autoencoders for Change Detection in Remote Sensing",
+      "venue": "EGU, 2023",
+      "url": "https://meetingorganizer.copernicus.org/EGU23/EGU23-2843.html"
+    }
+  ],
+  "blogs": [
+    {
+      "title": "Integrating LLMs to your personal Website.",
+      "summary": "How to integrate LLMs into your website in 2024. This blog post will guide you through integrating a sophisticated, free, and open-source chatbot based on LLAMA 3.1...",
+      "slug": "blogRAG_Groq_Chatbot",
+      "highlights": [
+        "Completely free and open-source implementation",
+        "Use of Meta's latest Llama 3.1 model",
+        "Advanced RAG (Retrieval-Augmented Generation) approach",
+        "Hugging Face embeddings and Groq LLM integration with Langchain"
+      ]
+    },
+    {
+      "title": "Personal Website Stack in 2024 - (Part-1)",
+      "summary": "How to create and deploy and publish your personal website in 2024...(Part-1)",
+      "slug": "blogWebsiteStackPart-1",
+      "highlights": []
+    },
+    {
+      "title": "Personal Website Stack in 2024 - (Part-2)",
+      "summary": "How to create and deploy and publish your personal website in 2024...(Part-2)",
+      "slug": "blogWebsiteStackPart-2",
+      "highlights": []
+    }
+  ],
+  "text_summary": "Akhil Singh Rana is a Senior Machine Learning Scientist.\n\nBio: As a Senior Machine Learning Scientist with a passion for pushing the boundaries of AI and computer vision, I've dedicated my career to developing cutting-edge solutions that bridge the gap between theoretical research and real-world applications. With over 8 years of experience, I've led projects ranging from creating the largest Earth Observation dataset (RAPIDAI4EO) to engineering multi-modal models that significantly improved agricultural yield forecasting. My expertise spans foundational model development, generative adversarial networks (GANs), deep reinforcement learning, and scalable machine learning systems. At Planet Labs, I've spearheaded the development of large-scale foundational models for satellite imagery, securing substantial funding for innovative projects and driving cross-functional collaborations. My previous roles at Airbus Defence and Space and Avira honed my skills in radar processing, image-to-image translation, and privacy-enhancing technologies. I'm particularly passionate about computer vision applications in AR/VR, having worked on real-time scene understanding, 3D reconstruction, and object tracking. My research h published in respected journals and presented at international conferences. As a technical leader, I thrive on mentoring junior engineers, fostering a culture of innovation, and translating complex AI concepts into impactful products. I'm always excited to tackle new challenges that push the boundaries of what's possible in machine learning and computer vision. When I'm not diving into code or brainstorming new AI architectures, you can find me exploring the latest developments in AR/VR technologies or contributing to open-source projects. I'm constantly seeking new opportunities to apply my expertise to solve complex, real-world problems.\n\nSkills: AI/ML, Computer Vision, GANs, Satellite Imagery, Foundational Models, PyTorch, Python, Remote Sensing, LLMs, RAG, LangChain.\n\nEducation: Master's in Computer Science (AI & Intelligent Systems) at TU Kaiserslautern (2016–2018); Bachelor's in Computer Science at ITM University (2011–2015).\n\nPublications: Land Use Land Classification (LULC) Change Detection with High Cadence Multimodal Image Time Series and Self-Supervised Learning (AGU, 2021); Detection of Maize Crop Phenology Using Planet Fusion (Remote Sens. 2024); Self-Supervised Learning for Crop Classification Using Planet Fusion (ISPRS, 2023); Rapidai4Eo: Mono-and Multi-Temporal Deep Learning Models for Updating the Corine Land Cover Product (IEEE, 2022); Geography-Aware Masked Autoencoders for Change Detection in Remote Sensing (EGU, 2023).\n\nBlog posts: Integrating LLMs to your personal Website.; Personal Website Stack in 2024 - (Part-1); Personal Website Stack in 2024 - (Part-2)."
+}
