@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X } from "lucide-react"
 
 interface Props {
   open: boolean
@@ -54,34 +53,35 @@ export default function ContactModal({ open, onClose }: Props) {
             onClick={onClose}
           />
           <motion.div
-            className="relative w-full max-w-md rounded-xl p-6"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+            className="relative w-full max-w-lg rounded-xl p-0 overflow-hidden"
+            style={{ background: "#1a1a1a", boxShadow: "0 24px 60px rgba(0,0,0,0.6)" }}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-5" style={{ padding: "20px 24px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
               <h2
                 className="text-xl font-bold"
-                style={{ fontFamily: "var(--font-sora)", color: "var(--text)" }}
+                style={{ fontFamily: "var(--font-sora)", color: "var(--accent)" }}
               >
                 Contact Me
               </h2>
-              <button onClick={onClose} style={{ color: "var(--muted)" }}>
-                <X size={20} />
-              </button>
+              <button onClick={onClose} style={{ color: "#aaa", background: "none", border: "none", cursor: "pointer", fontSize: "1.4rem", lineHeight: 1 }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#aaa")}
+              >×</button>
             </div>
 
             {status === "success" ? (
               <div
                 className="text-center py-6"
-                style={{ color: "var(--accent)" }}
+                style={{ color: "var(--accent)", padding: "0 24px 24px" }}
               >
                 ✓ Message sent successfully!
               </div>
             ) : (
-              <form onSubmit={submit} className="space-y-4">
+              <form onSubmit={submit} className="space-y-4" style={{ padding: "20px 24px 24px" }}>
                 <div>
                   <label className="text-xs font-medium mb-1 block" style={{ color: "var(--muted)" }}>
                     Name
@@ -139,8 +139,10 @@ export default function ContactModal({ open, onClose }: Props) {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full py-2.5 rounded-lg font-semibold text-sm disabled:opacity-60 transition"
-                  style={{ background: "var(--accent)", color: "#0a0f1a" }}
+                  className="w-full py-3 rounded-lg font-semibold disabled:opacity-60"
+                  style={{ background: "#2563eb", color: "#fff", fontSize: "1rem", border: "none", cursor: "pointer", transition: "background 0.15s" }}
+                  onMouseEnter={(e) => { if (status !== "sending") (e.currentTarget as HTMLElement).style.background = "#1d4ed8" }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#2563eb" }}
                 >
                   {status === "sending" ? "Sending..." : "Send Message"}
                 </button>

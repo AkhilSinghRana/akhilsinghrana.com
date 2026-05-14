@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* ── Design tokens ── */
 :root {
   --bg: #0a0f1a;
   --accent: #22d3ee;
@@ -7,83 +8,103 @@
   --text: #e2e8f0;
   --muted: #7a9ab3;
   --border: rgba(34, 211, 238, 0.15);
+  --card-bg: rgba(13, 26, 36, 0.82);
+  --card-border: rgba(34, 211, 238, 0.14);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --input-bg: rgba(0, 0, 0, 0.25);
   --font-sora: var(--font-sora);
   --font-dm-sans: var(--font-dm-sans);
 }
 
 .light {
-  --bg: #f8fafc;
+  --bg: #f1f5f9;
   --accent: #0891b2;
   --surface: #ffffff;
-  --text: #1e293b;
+  --text: #0f172a;
   --muted: #64748b;
   --border: rgba(0, 0, 0, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(0, 0, 0, 0.09);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.09);
+  --input-bg: #f8fafc;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-dm-sans), sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.25s, color 0.25s;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sora), sans-serif;
-}
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-sora), sans-serif; }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 3px;
-  opacity: 0.5;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; opacity: 0.5; }
 
-/* Glass utility */
+/* ── Card utilities ── */
 .glass {
-  background: rgba(13, 26, 36, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  color: var(--text);
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 
-.light .glass {
-  background: rgba(255, 255, 255, 0.8);
+/* Gradient card (reference image style) */
+.card-gradient {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  background: var(--card-bg);
+  color: var(--text);
 }
 
-/* Sidebar */
+.card-gradient::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: radial-gradient(ellipse at 50% 120%, rgba(120, 60, 220, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.light .card-gradient::after { opacity: 0.4; }
+
+/* ── Sidebar ── */
 .sidebar {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   height: 100vh;
   width: 260px;
   background-color: var(--surface);
   border-right: 1px solid var(--border);
-  display: flex;
   flex-direction: column;
   z-index: 40;
   overflow-y: auto;
   overflow-x: hidden;
+  transition: background-color 0.25s, border-color 0.25s;
+  /* Hidden on mobile by default */
+  display: none;
 }
 
-/* Section snap */
+@media (min-width: 768px) {
+  .sidebar {
+    display: flex;
+  }
+}
+
+/* ── Snap scroll ── */
 .snap-container {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
@@ -92,10 +113,124 @@ h1, h2, h3, h4, h5, h6 {
 
 .snap-section {
   scroll-snap-align: start;
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Accent glow */
+/* ── Responsive main content margin ── */
+.main-content {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    margin-left: 260px;
+  }
+}
+
+/* ── Mobile section padding ── */
+.section-pad {
+  padding: 14px 48px 14px 20px;
+}
+
+@media (min-width: 768px) {
+  .section-pad {
+    padding: 14px 56px 14px 40px;
+  }
+}
+
+.section-pad-home {
+  padding: 16px 48px 16px 16px;
+}
+
+@media (min-width: 768px) {
+  .section-pad-home {
+    padding: 20px 56px 20px 40px;
+  }
+}
+
+/* ── Hide dotnav on mobile ── */
+.dotnav-hide-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .dotnav-hide-mobile {
+    display: flex;
+  }
+}
+
+/* ── Accent glow ── */
 .accent-glow {
   box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+/* ── Blog featured card responsive ── */
+.blog-featured-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.blog-featured-text {
+  flex: 0 0 52%;
+}
+
+.blog-featured-img {
+  flex: 1;
+}
+
+.mini-blog-row {
+  display: flex;
+}
+
+@media (max-width: 767px) {
+  .blog-featured-card {
+    flex-direction: column;
+  }
+
+  .blog-featured-text {
+    flex: none;
+    width: 100%;
+    padding: 20px 18px !important;
+  }
+
+  .blog-featured-img {
+    display: none;
+  }
+
+  /* Vertical scrollable list on mobile */
+  .mini-blog-row {
+    flex-direction: column;
+    max-height: 44vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    gap: 10px !important;
+  }
+
+  /* Scrollbar styling for mini blog list */
+  .mini-blog-row::-webkit-scrollbar {
+    width: 4px;
+  }
+  .mini-blog-row::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .mini-blog-row::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+  }
+}
+
+/* ── Publications responsive ── */
+@media (max-width: 767px) {
+  .pub-layout {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .pub-viewer {
+    flex: none !important;
+    height: 35vh !important;
+    width: 100% !important;
+  }
 }

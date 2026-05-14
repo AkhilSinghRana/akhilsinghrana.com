@@ -5,69 +5,62 @@ import PortfolioCarousel from "@/components/ui/PortfolioCarousel"
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" } as Transition,
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.12, duration: 0.55, ease: "easeOut" } as Transition,
   }),
 }
 
 export default function HomeSection() {
   return (
-    <div className="flex flex-col md:flex-row items-center gap-10 h-full">
-      {/* Left: hero text */}
-      <div className="flex-1 flex flex-col justify-center">
-        <motion.h1
-          custom={0}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="text-4xl md:text-5xl font-extrabold mb-4"
-          style={{ fontFamily: "var(--font-sora)", color: "var(--text)" }}
-        >
-          Hi, There!{" "}
-          <span style={{ color: "var(--accent)" }}>👋</span>
-        </motion.h1>
-        <motion.p
-          custom={1}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="text-base leading-relaxed mb-6"
-          style={{ color: "var(--muted)", maxWidth: 480 }}
-        >
-          I&apos;m glad you&apos;re here. This space is a little corner of the internet where I
-          share my thoughts, experiences, and interests. I&apos;m a Senior Machine Learning
-          Engineer specializing in Computer Vision, Remote Sensing, and AI research. Feel
-          free to explore my work and get in touch!
-        </motion.p>
+    // Single unified card filling the full area
+    <motion.div
+      custom={0} variants={fadeUp} initial="hidden" animate="visible"
+      className="glass"
+      style={{ height: "100%", display: "flex", flexDirection: "column", padding: "28px 36px 20px", overflow: "hidden" }}
+    >
+      {/* ── Intro strip ── */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+        <div>
+          <h1 style={{ fontFamily: "var(--font-sora)", color: "var(--accent)", fontSize: "2.2rem", fontWeight: 800, lineHeight: 1.2, marginBottom: 8 }}>
+            Hi, There! 👋
+          </h1>
+          <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.7, maxWidth: 560 }}>
+            I&apos;m glad you&apos;re here. This space is a little corner of the internet where I share my
+            thoughts, experiences, and interests. Feel free to explore and don&apos;t hesitate to reach
+            out — I&apos;m always interested in connecting with new people.
+          </p>
+        </div>
         <motion.div
-          custom={2}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="flex gap-4 flex-wrap"
+          custom={1} variants={fadeUp} initial="hidden" animate="visible"
+          style={{ display: "flex", gap: 12, flexShrink: 0 }}
         >
-          <button
+          <motion.button
             onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all"
-            style={{ background: "var(--accent)", color: "#0a0f1a" }}
-          >
-            Read more about me
-          </button>
-          <button
+            style={{ padding: "10px 22px", borderRadius: 8, background: "var(--surface)", color: "var(--text)", fontSize: "0.88rem", fontWeight: 600, border: "1px solid var(--border)", cursor: "pointer" }}
+            whileHover={{ scale: 1.04, borderColor: "var(--accent)" } as never}
+            whileTap={{ scale: 0.97 }}
+          >About Me</motion.button>
+          <motion.button
             onClick={() => document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all"
-            style={{ border: "1px solid var(--accent)", color: "var(--accent)", background: "transparent" }}
-          >
-            My Blogs
-          </button>
+            style={{ padding: "10px 22px", borderRadius: 8, background: "var(--accent)", color: "#0a0f1a", fontSize: "0.88rem", fontWeight: 700, border: "none", cursor: "pointer" }}
+            whileHover={{ opacity: 0.88, scale: 1.04 } as never}
+            whileTap={{ scale: 0.97 }}
+          >My Blogs</motion.button>
         </motion.div>
       </div>
 
-      {/* Right: portfolio carousel */}
-      <div className="flex-1 w-full max-w-lg">
-        <PortfolioCarousel />
+      {/* ── Divider ── */}
+      <div style={{ height: 1, background: "linear-gradient(to right, transparent, var(--accent), transparent)", opacity: 0.3, marginBottom: 18, flexShrink: 0 }} />
+
+      {/* ── Portfolio section — fills remaining height ── */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+        <h2 style={{ fontFamily: "var(--font-sora)", color: "var(--text)", fontSize: "1.1rem", fontWeight: 700, textAlign: "center", marginBottom: 12, flexShrink: 0 }}>
+          Portfolio Overview
+        </h2>
+        <div style={{ flex: 1, minHeight: 0 }}>
+          <PortfolioCarousel />
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

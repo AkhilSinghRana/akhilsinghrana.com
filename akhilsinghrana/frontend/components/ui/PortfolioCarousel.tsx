@@ -22,19 +22,28 @@ export default function PortfolioCarousel() {
   }, [paused, index])
 
   const variants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
+    enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -100 : 100, opacity: 0 }),
+    exit:  (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
   }
 
   return (
     <div
-      className="relative rounded-xl overflow-hidden"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+      style={{
+        position: "relative",
+        height: "100%",
+        borderRadius: 14,
+        overflow: "hidden",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        display: "flex",
+        flexDirection: "column",
+      }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative h-64 md:h-80">
+      {/* Image area — fills all available space */}
+      <div style={{ flex: 1, position: "relative", overflow: "hidden", minHeight: 0 }}>
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
             key={index}
@@ -44,50 +53,56 @@ export default function PortfolioCarousel() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.35 }}
-            className="absolute inset-0"
+            style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--surface)" }}
           >
             <img
               src={PORTFOLIO_ITEMS[index].image}
               alt={PORTFOLIO_ITEMS[index].title}
-              className="w-full h-full object-cover"
+              style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", display: "block" }}
             />
-            <div
-              className="absolute bottom-0 left-0 right-0 p-3"
-              style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
-            >
-              <p className="text-white text-sm font-medium">{PORTFOLIO_ITEMS[index].title}</p>
+            {/* Caption overlay */}
+            <div style={{
+              position: "absolute", bottom: 0, left: 0, right: 0,
+              padding: "20px 16px 10px",
+              background: "linear-gradient(transparent, rgba(0,0,0,0.72))",
+            }}>
+              <p style={{ color: "#fff", fontSize: "0.9rem", fontWeight: 500 }}>
+                {PORTFOLIO_ITEMS[index].title}
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>
+
+        {/* Arrow buttons */}
+        <button
+          onClick={() => go(-1)}
+          style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", padding: "6px", borderRadius: "50%", background: "rgba(0,0,0,0.55)", color: "white", border: "none", cursor: "pointer", display: "flex", alignItems: "center" }}
+        >
+          <ChevronLeft size={18} />
+        </button>
+        <button
+          onClick={() => go(1)}
+          style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", padding: "6px", borderRadius: "50%", background: "rgba(0,0,0,0.55)", color: "white", border: "none", cursor: "pointer", display: "flex", alignItems: "center" }}
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
 
-      {/* Controls */}
-      <button
-        onClick={() => go(-1)}
-        className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full"
-        style={{ background: "rgba(0,0,0,0.5)", color: "white" }}
-      >
-        <ChevronLeft size={16} />
-      </button>
-      <button
-        onClick={() => go(1)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full"
-        style={{ background: "rgba(0,0,0,0.5)", color: "white" }}
-      >
-        <ChevronRight size={16} />
-      </button>
-
       {/* Dots */}
-      <div className="flex justify-center gap-1.5 py-2">
+      <div style={{ display: "flex", justifyContent: "center", gap: 6, padding: "8px 0", flexShrink: 0 }}>
         {PORTFOLIO_ITEMS.map((_, i) => (
           <button
             key={i}
             onClick={() => { setDirection(i > index ? 1 : -1); setIndex(i) }}
-            className="rounded-full transition-all"
             style={{
-              width: i === index ? 16 : 6,
-              height: 6,
+              borderRadius: 999,
+              width: i === index ? 18 : 7,
+              height: 7,
               background: i === index ? "var(--accent)" : "var(--muted)",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              transition: "all 0.25s",
             }}
           />
         ))}
