@@ -1,36 +1,45 @@
-# Build stage
+# ── Build stage ──────────────────────────────────────────────────────────────
 FROM python:3.12-slim-bookworm AS builder
 
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential libssl-dev libffi-dev python3-dev && \
-    pip install --no-cache-dir poetry==1.8.3 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends build-essential libssl-dev libffi-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-COPY poetry.lock pyproject.toml ./
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy
 
-RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
+COPY pyproject.toml uv.lock ./
 
-# Runtime stage
+# Install production deps only (no dev group)
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev --no-install-project
+
+# ── Runtime stage ─────────────────────────────────────────────────────────────
 FROM python:3.12-slim-bookworm AS runtime
-
-ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
 
-COPY --from=builder /app/.venv ${VIRTUAL_ENV}
-COPY akhilsinghrana ./akhilsinghrana
+# Copy venv from builder
+COPY --from=builder /app/.venv /app/.venv
+
+# Copy backend package (includes db/faiss_db, bot_cache.json, content/)
+COPY akhilsinghrana/backend ./akhilsinghrana/backend
+COPY akhilsinghrana/__init__.py ./akhilsinghrana/__init__.py
+
+# Copy blog HTML files (served by /api/blog/{slug} endpoint)
+COPY akhilsinghrana/frontend/public/blogs ./akhilsinghrana/backend/blogs
+
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONPATH="/app" \
+    PAGES_DIR="/app/akhilsinghrana/backend/blogs"
 
 EXPOSE 8080
 
 LABEL maintainer="Akhil Singh Rana <akhilsinghrana@gmail.com>"
 
-CMD ["fastapi", "run", "./akhilsinghrana/main.py", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "akhilsinghrana.backend.main:app", "--host", "0.0.0.0", "--port", "8080"]
