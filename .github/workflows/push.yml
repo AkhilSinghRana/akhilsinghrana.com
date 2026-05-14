@@ -124,7 +124,9 @@ jobs:
 
             - name: Deploy to Firebase Hosting
               run: |
-                  npx firebase-tools deploy --only hosting \
+                  npx firebase-tools@latest deploy --only hosting \
                     --project ${{ vars.PROJECT_NAME }} \
-                    --token ${{ secrets.FIREBASE_TOKEN }}
+                    --non-interactive
               working-directory: akhilsinghrana/frontend
+              env:
+                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
