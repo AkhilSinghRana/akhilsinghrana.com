@@ -100,6 +100,7 @@ jobs:
         name: Deploy frontend to Firebase Hosting
         runs-on: ubuntu-latest
         needs: deploy-backend # ensures backend URL is available
+        environment: gcloud
 
         permissions:
             contents: read
